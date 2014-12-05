@@ -26,13 +26,15 @@ var ChatApp = React.createClass({
 var ChanView = React.createClass({
     render: function() {
         return (
-            <div>
-                <div>
-                    <span>{this.props.channel.title}</span>
-                    <ChanSelector />
-                </div>
+            <section>
+                <header>
+                    <h2 className="chanView--title">{this.props.channel.title}</h2>
+                    <span className="chanView--chanSelect">
+                        <ChanSelector />
+                    </span>
+                </header>
                 <ChatWindow messages={messages[JSON.stringify(channel)]}/>
-            </div>
+            </section>
         );
     }
 });

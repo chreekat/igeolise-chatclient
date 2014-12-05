@@ -1,7 +1,21 @@
-div {
+/* minor reset */
+body {
+    margin: 0;
+}
+
+div, article, section, header {
     border: 1px solid blue;
+    border-radius: 4px;
 }
 
 span {
     border: 1px solid green;
+}
+
+.chanView--title {
+    display: inline;
+}
+
+.chanView--chanSelect {
+    float: right;
 }
