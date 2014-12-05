@@ -1,10 +1,37 @@
+var channel = {
+    title: "Chan 1"
+};
+
+var messages = {};
+messages[JSON.stringify(channel)] = [
+    {
+        author: "Pancake",
+        date: "some date",
+        message: "I am a message thing"
+    },
+    {
+        author: "FlappyHouse",
+        date: "alsodate",
+        message: "You are not a message thing. Note my message-ness."
+    }
+];
+
 var ChatApp = React.createClass({
     render: function() {
         return (
+            <ChanView channel={channel} />
+        );
+    }
+});
+var ChanView = React.createClass({
+    render: function() {
+        return (
             <div>
-                <ChanHeader />
-                <ChatWindow />
-                <ChanDisplay />
+                <div>
+                    <span>{this.props.channel.title}</span>
+                    <ChanSelector />
+                </div>
+                <ChatWindow messages={messages[JSON.stringify(channel)]}/>
             </div>
         );
     }
@@ -13,43 +40,10 @@ var ChatMessage = React.createClass({
     render: function() {
         return (
             <div>
-                <ChatMeta />
-                <ChatMessageBody />
+                <div>{this.props.author}</div>
+                <div>{this.props.date}</div>
+                <div>{this.props.message}</div>
             </div>
-        );
-    }
-});
-var ChatMeta = React.createClass({
-    render: function() {
-        return (
-            <div>
-                <div>Author</div>
-                <div>Date</div>
-            </div>
-        );
-    }
-});
-var ChatMessageBody = React.createClass({
-    render: function() {
-        return (
-            <div>MessageBody</div>
-        );
-    }
-});
-var ChanHeader = React.createClass({
-    render: function() {
-        return (
-            <div>
-                <ChanTitle />
-                <ChanSelector />
-            </div>
-        );
-    }
-});
-var ChanTitle = React.createClass({
-    render: function() {
-        return (
-            <span>Chan 1</span>
         );
     }
 });
@@ -62,15 +56,23 @@ var ChanSelector = React.createClass({
 });
 var ChatWindow = React.createClass({
     render: function() {
+        var msg1 = this.props.messages[0];
+        var nodes = this.props.messages.map(function(msg, idx) {
+            return (
+                <ChatMessage key={idx} {...msg} />
+            );
+        });
         return (
-            <ChatMessage />
+            <div>
+                {nodes}
+            </div>
         );
     }
 });
 var ChanNameInput = React.createClass({
     render: function() {
         return (
-            <input value="New chan" />
+            <input placeholder="New chan" />
         );
     }
 });
