@@ -1,50 +1,58 @@
-/* minor reset */
+/* Minor reset */
 body {
     margin: 0;
     font-family: sans-serif;
 }
 
-div, article, section, header, time {
-    border: 1px solid blue;
-    border-radius: 4px;
-}
-
-span {
-    border: 1px solid green;
-}
-
 /* ChanView */
+.chanView header {
+    background: lightblue;
+    border-radius: 4px;
+    padding: 5px;
+}
+.chanView main {
+    position: fixed;
+    bottom: 0;
+    top: 38px;
+    left: 0;
+    right: 0;
+    overflow: auto;
+}
+/* Hm, is there a better way to do this? */
+.chanView main * {
+    position: initial;
+    overflow: initial;
+    margin-bottom: 0.5em;
+}
 .chanView--title {
     display: inline;
 }
-
 .chanView--chanSelect {
     float: right;
 }
 
 /* ChatMessage */
-.chatMessage--date {
-    text-align: right;
-    display: block;
+.chatMessage {
+    margin-top: 0.5em;
 }
-
-.chatMessage--meta {
-    float: left;
-}
-
 .chatMessage:after {
     content: "";
     display: table;
     clear: both;
 }
-
 .chatMessage--meta {
-    margin: 0 1em 0 0.3em;
+    float: left;
+    background: lightgreen;
+    border-radius: 2px;
+    margin: 0 0.6em 0 0.3em;
+    padding: 5px;
 }
-
-.chatMessage {
-    margin-top: 0.5em;
+.chatMessage--date {
+    text-align: right;
+    display: block;
+    font-size: 70%;
 }
 .chatMessage--data {
-    padding-top: 0.2em;
+    padding-top: 0.6em;
+    margin-left: 1em;
 }
