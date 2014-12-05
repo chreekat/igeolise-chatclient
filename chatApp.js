@@ -448,19 +448,6 @@ var ChanView = React.createClass({
         );
     }
 });
-var ChatMessage = React.createClass({
-    render: function() {
-        return (
-            <section className="chatMessage">
-                <div className="chatMessage--meta">
-                    <div>{this.props.author}</div>
-                    <time className="chatMessage--date">{this.props.date}</time>
-                </div>
-                <main className="chatMessage--data">{this.props.message}</main>
-            </section>
-        );
-    }
-});
 var ChanSelector = React.createClass({
     render: function() {
         return (
@@ -480,6 +467,19 @@ var ChatWindow = React.createClass({
             <main>
                 {nodes}
             </main>
+        );
+    }
+});
+var ChatMessage = React.createClass({
+    render: function() {
+        return (
+            <section className="chatMessage">
+                <div className="chatMessage--meta">
+                    <div>{this.props.author}</div>
+                    <time className="chatMessage--date">{this.props.date}</time>
+                </div>
+                <main className="chatMessage--data">{this.props.message}</main>
+            </section>
         );
     }
 });
