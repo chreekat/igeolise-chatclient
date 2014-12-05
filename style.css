@@ -1,9 +1,10 @@
 /* minor reset */
 body {
     margin: 0;
+    font-family: sans-serif;
 }
 
-div, article, section, header {
+div, article, section, header, time {
     border: 1px solid blue;
     border-radius: 4px;
 }
@@ -12,10 +13,38 @@ span {
     border: 1px solid green;
 }
 
+/* ChanView */
 .chanView--title {
     display: inline;
 }
 
 .chanView--chanSelect {
     float: right;
+}
+
+/* ChatMessage */
+.chatMessage--date {
+    text-align: right;
+    display: block;
+}
+
+.chatMessage--meta {
+    float: left;
+}
+
+.chatMessage:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.chatMessage--meta {
+    margin: 0 1em 0 0.3em;
+}
+
+.chatMessage {
+    margin-top: 0.5em;
+}
+.chatMessage--data {
+    padding-top: 0.2em;
 }

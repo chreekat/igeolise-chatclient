@@ -6,12 +6,12 @@ var messages = {};
 messages[JSON.stringify(channel)] = [
     {
         author: "Pancake",
-        date: "some date",
+        date: "12:05",
         message: "I am a message thing"
     },
     {
         author: "FlappyHouse",
-        date: "alsodate",
+        date: "13:08",
         message: "You are not a message thing. Note my message-ness."
     }
 ];
@@ -41,11 +41,13 @@ var ChanView = React.createClass({
 var ChatMessage = React.createClass({
     render: function() {
         return (
-            <div>
-                <div>{this.props.author}</div>
-                <div>{this.props.date}</div>
-                <div>{this.props.message}</div>
-            </div>
+            <section className="chatMessage">
+                <div className="chatMessage--meta">
+                    <div>{this.props.author}</div>
+                    <time className="chatMessage--date">{this.props.date}</time>
+                </div>
+                <main className="chatMessage--data">{this.props.message}</main>
+            </section>
         );
     }
 });
@@ -65,9 +67,9 @@ var ChatWindow = React.createClass({
             );
         });
         return (
-            <div>
+            <main>
                 {nodes}
-            </div>
+            </main>
         );
     }
 });
