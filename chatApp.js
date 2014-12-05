@@ -12,8 +12,418 @@ messages[JSON.stringify(channel)] = [
     {
         author: "FlappyHouse",
         date: "13:08",
+        message: "You are not a message thing. I am. Note my message-ness."
+    },
+    {
+        author: "FrontPorch",
+        date: "13:10",
+        message: "Now, let me tell you whippersnappers about messages. Back in my day, Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    {
+        author: "Pancake",
+        date: "13:11",
+        message: "...yikes"
+    },
+    {
+        author: "Pancake",
+        date: "12:05",
+        message: "I am a message thing"
+    },
+    {
+        author: "FlappyHouse",
+        date: "13:08",
         message: "You are not a message thing. Note my message-ness."
-    }
+    },
+    {
+        author: "FrontPorch",
+        date: "13:10",
+        message: "Now, let me tell you whippersnappers about messages. Back in my day, Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    {
+        author: "Pancake",
+        date: "13:11",
+        message: "...yikes"
+    },
+    {
+        author: "Pancake",
+        date: "12:05",
+        message: "I am a message thing"
+    },
+    {
+        author: "FlappyHouse",
+        date: "13:08",
+        message: "You are not a message thing. Note my message-ness."
+    },
+    {
+        author: "FrontPorch",
+        date: "13:10",
+        message: "Now, let me tell you whippersnappers about messages. Back in my day, Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    {
+        author: "Pancake",
+        date: "13:11",
+        message: "...yikes"
+    },
+    {
+        author: "Pancake",
+        date: "12:05",
+        message: "I am a message thing"
+    },
+    {
+        author: "FlappyHouse",
+        date: "13:08",
+        message: "You are not a message thing. Note my message-ness."
+    },
+    {
+        author: "FrontPorch",
+        date: "13:10",
+        message: "Now, let me tell you whippersnappers about messages. Back in my day, Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    {
+        author: "Pancake",
+        date: "13:11",
+        message: "...yikes"
+    },
+    {
+        author: "Pancake",
+        date: "12:05",
+        message: "I am a message thing"
+    },
+    {
+        author: "FlappyHouse",
+        date: "13:08",
+        message: "You are not a message thing. Note my message-ness."
+    },
+    {
+        author: "FrontPorch",
+        date: "13:10",
+        message: "Now, let me tell you whippersnappers about messages. Back in my day, Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    {
+        author: "Pancake",
+        date: "13:11",
+        message: "...yikes"
+    },
+    {
+        author: "Pancake",
+        date: "12:05",
+        message: "I am a message thing"
+    },
+    {
+        author: "FlappyHouse",
+        date: "13:08",
+        message: "You are not a message thing. Note my message-ness."
+    },
+    {
+        author: "FrontPorch",
+        date: "13:10",
+        message: "Now, let me tell you whippersnappers about messages. Back in my day, Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    {
+        author: "Pancake",
+        date: "13:11",
+        message: "...yikes"
+    },
+    {
+        author: "Pancake",
+        date: "12:05",
+        message: "I am a message thing"
+    },
+    {
+        author: "FlappyHouse",
+        date: "13:08",
+        message: "You are not a message thing. Note my message-ness."
+    },
+    {
+        author: "FrontPorch",
+        date: "13:10",
+        message: "Now, let me tell you whippersnappers about messages. Back in my day, Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    {
+        author: "Pancake",
+        date: "13:11",
+        message: "...yikes"
+    },
+    {
+        author: "Pancake",
+        date: "12:05",
+        message: "I am a message thing"
+    },
+    {
+        author: "FlappyHouse",
+        date: "13:08",
+        message: "You are not a message thing. Note my message-ness."
+    },
+    {
+        author: "FrontPorch",
+        date: "13:10",
+        message: "Now, let me tell you whippersnappers about messages. Back in my day, Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    {
+        author: "Pancake",
+        date: "13:11",
+        message: "...yikes"
+    },
+    {
+        author: "Pancake",
+        date: "12:05",
+        message: "I am a message thing"
+    },
+    {
+        author: "FlappyHouse",
+        date: "13:08",
+        message: "You are not a message thing. Note my message-ness."
+    },
+    {
+        author: "FrontPorch",
+        date: "13:10",
+        message: "Now, let me tell you whippersnappers about messages. Back in my day, Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    {
+        author: "Pancake",
+        date: "13:11",
+        message: "...yikes"
+    },
+    {
+        author: "Pancake",
+        date: "12:05",
+        message: "I am a message thing"
+    },
+    {
+        author: "FlappyHouse",
+        date: "13:08",
+        message: "You are not a message thing. Note my message-ness."
+    },
+    {
+        author: "FrontPorch",
+        date: "13:10",
+        message: "Now, let me tell you whippersnappers about messages. Back in my day, Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    {
+        author: "Pancake",
+        date: "13:11",
+        message: "...yikes"
+    },
+    {
+        author: "Pancake",
+        date: "12:05",
+        message: "I am a message thing"
+    },
+    {
+        author: "FlappyHouse",
+        date: "13:08",
+        message: "You are not a message thing. Note my message-ness."
+    },
+    {
+        author: "FrontPorch",
+        date: "13:10",
+        message: "Now, let me tell you whippersnappers about messages. Back in my day, Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    {
+        author: "Pancake",
+        date: "13:11",
+        message: "...yikes"
+    },
+    {
+        author: "Pancake",
+        date: "12:05",
+        message: "I am a message thing"
+    },
+    {
+        author: "FlappyHouse",
+        date: "13:08",
+        message: "You are not a message thing. Note my message-ness."
+    },
+    {
+        author: "FrontPorch",
+        date: "13:10",
+        message: "Now, let me tell you whippersnappers about messages. Back in my day, Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    {
+        author: "Pancake",
+        date: "13:11",
+        message: "...yikes"
+    },
+    {
+        author: "Pancake",
+        date: "12:05",
+        message: "I am a message thing"
+    },
+    {
+        author: "FlappyHouse",
+        date: "13:08",
+        message: "You are not a message thing. Note my message-ness."
+    },
+    {
+        author: "FrontPorch",
+        date: "13:10",
+        message: "Now, let me tell you whippersnappers about messages. Back in my day, Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    {
+        author: "Pancake",
+        date: "13:11",
+        message: "...yikes"
+    },
+    {
+        author: "Pancake",
+        date: "12:05",
+        message: "I am a message thing"
+    },
+    {
+        author: "FlappyHouse",
+        date: "13:08",
+        message: "You are not a message thing. Note my message-ness."
+    },
+    {
+        author: "FrontPorch",
+        date: "13:10",
+        message: "Now, let me tell you whippersnappers about messages. Back in my day, Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    {
+        author: "Pancake",
+        date: "13:11",
+        message: "...yikes"
+    },
+    {
+        author: "Pancake",
+        date: "12:05",
+        message: "I am a message thing"
+    },
+    {
+        author: "FlappyHouse",
+        date: "13:08",
+        message: "You are not a message thing. Note my message-ness."
+    },
+    {
+        author: "FrontPorch",
+        date: "13:10",
+        message: "Now, let me tell you whippersnappers about messages. Back in my day, Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    {
+        author: "Pancake",
+        date: "13:11",
+        message: "...yikes"
+    },
+    {
+        author: "Pancake",
+        date: "12:05",
+        message: "I am a message thing"
+    },
+    {
+        author: "FlappyHouse",
+        date: "13:08",
+        message: "You are not a message thing. Note my message-ness."
+    },
+    {
+        author: "FrontPorch",
+        date: "13:10",
+        message: "Now, let me tell you whippersnappers about messages. Back in my day, Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    {
+        author: "Pancake",
+        date: "13:11",
+        message: "...yikes"
+    },
+    {
+        author: "Pancake",
+        date: "12:05",
+        message: "I am a message thing"
+    },
+    {
+        author: "FlappyHouse",
+        date: "13:08",
+        message: "You are not a message thing. Note my message-ness."
+    },
+    {
+        author: "FrontPorch",
+        date: "13:10",
+        message: "Now, let me tell you whippersnappers about messages. Back in my day, Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    {
+        author: "Pancake",
+        date: "13:11",
+        message: "...yikes"
+    },
+    {
+        author: "Pancake",
+        date: "12:05",
+        message: "I am a message thing"
+    },
+    {
+        author: "FlappyHouse",
+        date: "13:08",
+        message: "You are not a message thing. Note my message-ness."
+    },
+    {
+        author: "FrontPorch",
+        date: "13:10",
+        message: "Now, let me tell you whippersnappers about messages. Back in my day, Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    {
+        author: "Pancake",
+        date: "13:11",
+        message: "...yikes"
+    },
+    {
+        author: "Pancake",
+        date: "12:05",
+        message: "I am a message thing"
+    },
+    {
+        author: "FlappyHouse",
+        date: "13:08",
+        message: "You are not a message thing. Note my message-ness."
+    },
+    {
+        author: "FrontPorch",
+        date: "13:10",
+        message: "Now, let me tell you whippersnappers about messages. Back in my day, Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    {
+        author: "Pancake",
+        date: "13:11",
+        message: "...yikes"
+    },
+    {
+        author: "Pancake",
+        date: "12:05",
+        message: "I am a message thing"
+    },
+    {
+        author: "FlappyHouse",
+        date: "13:08",
+        message: "You are not a message thing. Note my message-ness."
+    },
+    {
+        author: "FrontPorch",
+        date: "13:10",
+        message: "Now, let me tell you whippersnappers about messages. Back in my day, Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    {
+        author: "Pancake",
+        date: "13:11",
+        message: "...yikes"
+    },
+    {
+        author: "Pancake",
+        date: "12:05",
+        message: "I am a message thing"
+    },
+    {
+        author: "FlappyHouse",
+        date: "13:08",
+        message: "You are not a message thing. Note my message-ness."
+    },
+    {
+        author: "FrontPorch",
+        date: "13:10",
+        message: "Now, let me tell you whippersnappers about messages. Back in my day, Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    {
+        author: "Pancake",
+        date: "13:11",
+        message: "...yikes"
+    },
 ];
 
 var ChatApp = React.createClass({
@@ -26,7 +436,7 @@ var ChatApp = React.createClass({
 var ChanView = React.createClass({
     render: function() {
         return (
-            <section>
+            <section className="chanView">
                 <header>
                     <h2 className="chanView--title">{this.props.channel.title}</h2>
                     <span className="chanView--chanSelect">
