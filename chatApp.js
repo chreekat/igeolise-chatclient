@@ -1,12 +1,5 @@
 // REACT COMPONENTS
 
-var ChatApp = React.createClass({
-    render: function() {
-        return (
-            <ChanView channel={channel} />
-        );
-    }
-});
 var ChanView = React.createClass({
     render: function() {
         return (
@@ -132,4 +125,4 @@ for (var i = 0; i < 4; i++) {
 
 
 // FIRE ZE MISSILES
-React.render(<ChatApp />, document.getElementById("chatApp"));
+React.render(<ChanView channel={channel}/>, document.getElementById("chatApp"));
