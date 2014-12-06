@@ -18,6 +18,7 @@ var ChanView = React.createClass({
                     </span>
                 </header>
                 <ChatWindow messages={messages[0]}/>
+                <textarea rows="3" className="chanView--chatInput" />
             </section>
         );
     }
