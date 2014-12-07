@@ -177,6 +177,7 @@ chanViewStateProp = Bacon.combineTemplate({
 });
 
 // FIRE ZE MISSILES
+React.initializeTouchEvents(true);
 React.render(<ChatApp />, document.getElementById("chatApp"));
 
 // FIXME: This has to be done *after* the component is mounted/connectod to
