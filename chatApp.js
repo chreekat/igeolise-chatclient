@@ -13,8 +13,28 @@ var ChatApp = React.createClass({
     },
     render: function() {
         return (
-            <ChanView {...this.state} />
+            this.state.user === null ? <UserField /> : <ChanView {...this.state} />
         );
+    }
+});
+var UserField = React.createClass({
+    render: function() {
+        return (
+            <form className="userInput" onSubmit={this.handleSubmit}>
+                <label htmlFor="userInput">
+                    <input id="userInput" ref="username" placeholder="Your name" />
+                </label>
+            </form>
+        );
+    },
+    handleSubmit: function(ev) {
+        ev.preventDefault();
+        var nameInput = this.refs.username.getDOMNode();
+        usernameBus.push(nameInput.value);
+        nameInput.value = "";
+    },
+    componentDidMount: function() {
+        this.refs.username.getDOMNode().focus();
     }
 });
 var ChanView = React.createClass({
@@ -26,7 +46,7 @@ var ChanView = React.createClass({
             ev.preventDefault();
             var inputNode = this.refs.msg.getDOMNode();
             messageBus.push({
-                user: "Bryan",
+                user: this.props.user,
                 stamp: (function(d) {
                     return String(d.getHours() + ":" + d.getMinutes());
                 }(new Date())),
@@ -133,6 +153,7 @@ var ChanList = React.createClass({
 
 // Action Buses
 var messageBus = new Bacon.Bus();
+var usernameBus = new Bacon.Bus();
 
 // Intermediate logic
 var messagesProperty = messageBus.scan([], function(acc, m) {
@@ -149,7 +170,7 @@ var channelsProperty = Bacon.combineAsArray(channelProperty);
 var currentChanProperty = channelsProperty.map(".0");
 
 chanViewStateProp = Bacon.combineTemplate({
-    user: null,
+    user: usernameBus.toProperty(null),
     channels: channelsProperty,
     currentChannel: currentChanProperty
 });
