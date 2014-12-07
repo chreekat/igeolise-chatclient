@@ -47,9 +47,7 @@ var ChanView = React.createClass({
             var inputNode = this.refs.msg.getDOMNode();
             messageBus.push({
                 user: this.props.user,
-                stamp: (function(d) {
-                    return String(d.getHours() + ":" + d.getMinutes());
-                }(new Date())),
+                stamp: Date.now(),
                 text: inputNode.value.trim()
             });
             inputNode.value = "";
@@ -94,11 +92,14 @@ var ChatWindow = React.createClass({
 });
 var ChatMessage = React.createClass({
     render: function() {
+        var date = (function(d) {
+            return String(d.getHours() + ":" + d.getMinutes());
+        }(new Date(this.props.stamp)));
         return (
             <section className="chatMessage">
                 <div className="chatMessage--meta">
                     <div>{this.props.user}</div>
-                    <time className="chatMessage--date">{this.props.stamp}</time>
+                    <time className="chatMessage--date">{date}</time>
                 </div>
                 <main className="chatMessage--data">{this.props.text}</main>
             </section>
@@ -187,17 +188,17 @@ React.render(<ChatApp />, document.getElementById("chatApp"));
 [
     {
         user: "Pancake",
-        stamp: "12:05",
+        stamp: 1417977011638,
         text: "I am a message thing"
     },
     {
         user: "FlappyHouse",
-        stamp: "13:08",
+        stamp: 1417977012638,
         text: "You are not a message thing. I am. Note my message-ness."
     },
     {
         user: "FrontPorch",
-        stamp: "13:10",
+        stamp: 1417977013638,
         text: "Now, let me tell you whippersnappers about messages. Back in my day, Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
     }
 ].map(function(m) { messageBus.push(m) });
