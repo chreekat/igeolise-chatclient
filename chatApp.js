@@ -1,11 +1,32 @@
 // REACT COMPONENTS
 
+var chanViewStateProp;
+
 var ChanView = React.createClass({
-    getInitialState: function() {
-        return({
-            channels: this.props.initialChannels,
-            currentChannel: this.props.initialChannels[0]
-        });
+    componentWillMount: function() {
+        // FIXME: Referencing a global here instead of an initialProp, due
+        // to me being confused about when what gets initialized. (If I use
+        // a prop here, I get "onValue" not defined. If I use a prop, but
+        // put it in componentDidMount, then I need to use getInitialState,
+        // which feels unnecessary.)
+        chanViewStateProp.onValue(this, "replaceState");
+    },
+    componentDidMount: function() {
+        this.refs.msg.getDOMNode().focus();
+    },
+    handleKeyPress: function(ev) {
+        if (ev.keyCode === 13) {
+            ev.preventDefault();
+            var inputNode = this.refs.msg.getDOMNode();
+            messageBus.push({
+                user: "Bryan",
+                stamp: (function(d) {
+                    return String(d.getHours() + ":" + d.getMinutes());
+                }(new Date())),
+                text: inputNode.value.trim()
+            });
+            inputNode.value = "";
+        }
     },
     render: function() {
         return (
@@ -17,7 +38,8 @@ var ChanView = React.createClass({
                     </span>
                 </header>
                 <ChatWindow messages={this.state.currentChannel.messages}/>
-                <textarea rows="3" className="chanView--chatInput" />
+                <textarea rows="3" className="chanView--chatInput" ref="msg"
+                        onKeyDown={this.handleKeyPress} />
             </section>
         );
     }
@@ -124,5 +146,30 @@ chanViewStateProp = Bacon.combineTemplate({
     currentChannel: currentChanProperty
 });
 
+
 // FIRE ZE MISSILES
-React.render(<ChanView initialChannels={channels}/>, document.getElementById("chatApp"));
+React.render(<ChanView stateProp={chanViewStateProp}/>, document.getElementById("chatApp"));
+
+// FIXME: This has to be done *after* the component is mounted/connectod to
+// the stateProp; otherwise the bus is treated as dead and these initial
+// messages disappear into the ether. That's fragile; perhaps there's a
+// solution.
+//
+// Add some initial messages
+[
+    {
+        user: "Pancake",
+        stamp: "12:05",
+        text: "I am a message thing"
+    },
+    {
+        user: "FlappyHouse",
+        stamp: "13:08",
+        text: "You are not a message thing. I am. Note my message-ness."
+    },
+    {
+        user: "FrontPorch",
+        stamp: "13:10",
+        text: "Now, let me tell you whippersnappers about messages. Back in my day, Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    }
+].map(function(m) { messageBus.push(m) });
