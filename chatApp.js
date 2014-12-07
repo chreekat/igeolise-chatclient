@@ -41,7 +41,7 @@ var ChanView = React.createClass({
     componentDidMount: function() {
         this.refs.msg.getDOMNode().focus();
     },
-    handleKeyPress: function(ev) {
+    handleChatMessage: function(ev) {
         if (ev.keyCode === 13) {
             ev.preventDefault();
             var inputNode = this.refs.msg.getDOMNode();
@@ -58,21 +58,12 @@ var ChanView = React.createClass({
             <section className="chanView">
                 <header>
                     <h2 className="chanView--title">{this.props.currentChannel.name}</h2>
-                    <span className="chanView--chanSelect">
-                        <ChanSelector />
-                    </span>
+                    <button className="chanView--chanSelect">V</button>
                 </header>
                 <ChatWindow messages={this.props.currentChannel.messages}/>
                 <textarea rows="3" className="chanView--chatInput" ref="msg"
-                        onKeyDown={this.handleKeyPress} />
+                        onKeyDown={this.handleChatMessage} />
             </section>
-        );
-    }
-});
-var ChanSelector = React.createClass({
-    render: function() {
-        return (
-            <button>V</button>
         );
     }
 });
