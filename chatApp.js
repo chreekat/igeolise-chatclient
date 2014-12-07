@@ -100,36 +100,29 @@ var ChanList = React.createClass({
     }
 });
 
-// STATIC TEST DATA
+// TEST BACON
 
-var channels = [{
+// Action Buses
+var messageBus = new Bacon.Bus();
+
+// Intermediate logic
+var messagesProperty = messageBus.scan([], function(acc, m) {
+    acc.push(m); return acc;
+})
+
+var channelProperty = Bacon.combineTemplate({
     name: "Chan 1",
     users: ['Bob', 'Frank'],
-    messages: []
-}];
+    messages: messagesProperty
+});
 
-channels[0].messages = channels[0].messages.concat([
-    {
-        user: "Pancake",
-        stamp: "12:05",
-        text: "I am a message thing"
-    },
-    {
-        user: "FlappyHouse",
-        stamp: "13:08",
-        text: "You are not a message thing. I am. Note my message-ness."
-    },
-    {
-        user: "FrontPorch",
-        stamp: "13:10",
-        text: "Now, let me tell you whippersnappers about messages. Back in my day, Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-    }
-]);
-// Lots of data to test scrolling.
-for (var i = 0; i < 4; i++) {
-    channels[0].messages = channels[0].messages.concat(channels[0].messages);
-}
+var channelsProperty = Bacon.combineAsArray(channelProperty);
+var currentChanProperty = channelsProperty.map(".0");
 
+chanViewStateProp = Bacon.combineTemplate({
+    channels: channelsProperty,
+    currentChannel: currentChanProperty
+});
 
 // FIRE ZE MISSILES
 React.render(<ChanView initialChannels={channels}/>, document.getElementById("chatApp"));
