@@ -2,7 +2,7 @@
 
 var chanViewStateProp;
 
-var ChanView = React.createClass({
+var ChatApp = React.createClass({
     componentWillMount: function() {
         // FIXME: Referencing a global here instead of an initialProp, due
         // to me being confused about when what gets initialized. (If I use
@@ -11,6 +11,33 @@ var ChanView = React.createClass({
         // which feels unnecessary.)
         chanViewStateProp.onValue(this, "replaceState");
     },
+    render: function() {
+        return (
+            this.state.user === null ? <UserField /> : <ChanView {...this.state} />
+        );
+    }
+});
+var UserField = React.createClass({
+    render: function() {
+        return (
+            <form className="userInput" onSubmit={this.handleSubmit}>
+                <label htmlFor="userInput">
+                    <input id="userInput" ref="username" placeholder="Your name" />
+                </label>
+            </form>
+        );
+    },
+    handleSubmit: function(ev) {
+        ev.preventDefault();
+        var nameInput = this.refs.username.getDOMNode();
+        usernameBus.push(nameInput.value);
+        nameInput.value = "";
+    },
+    componentDidMount: function() {
+        this.refs.username.getDOMNode().focus();
+    }
+});
+var ChanView = React.createClass({
     componentDidMount: function() {
         this.refs.msg.getDOMNode().focus();
     },
@@ -19,7 +46,7 @@ var ChanView = React.createClass({
             ev.preventDefault();
             var inputNode = this.refs.msg.getDOMNode();
             messageBus.push({
-                user: "Bryan",
+                user: this.props.user,
                 stamp: (function(d) {
                     return String(d.getHours() + ":" + d.getMinutes());
                 }(new Date())),
@@ -32,12 +59,12 @@ var ChanView = React.createClass({
         return (
             <section className="chanView">
                 <header>
-                    <h2 className="chanView--title">{this.state.currentChannel.name}</h2>
+                    <h2 className="chanView--title">{this.props.currentChannel.name}</h2>
                     <span className="chanView--chanSelect">
                         <ChanSelector />
                     </span>
                 </header>
-                <ChatWindow messages={this.state.currentChannel.messages}/>
+                <ChatWindow messages={this.props.currentChannel.messages}/>
                 <textarea rows="3" className="chanView--chatInput" ref="msg"
                         onKeyDown={this.handleKeyPress} />
             </section>
@@ -126,6 +153,7 @@ var ChanList = React.createClass({
 
 // Action Buses
 var messageBus = new Bacon.Bus();
+var usernameBus = new Bacon.Bus();
 
 // Intermediate logic
 var messagesProperty = messageBus.scan([], function(acc, m) {
@@ -142,13 +170,13 @@ var channelsProperty = Bacon.combineAsArray(channelProperty);
 var currentChanProperty = channelsProperty.map(".0");
 
 chanViewStateProp = Bacon.combineTemplate({
+    user: usernameBus.toProperty(null),
     channels: channelsProperty,
     currentChannel: currentChanProperty
 });
 
-
 // FIRE ZE MISSILES
-React.render(<ChanView stateProp={chanViewStateProp}/>, document.getElementById("chatApp"));
+React.render(<ChatApp />, document.getElementById("chatApp"));
 
 // FIXME: This has to be done *after* the component is mounted/connectod to
 // the stateProp; otherwise the bus is treated as dead and these initial
