@@ -75,8 +75,8 @@ var Foo = React.createClass({
 var Bar = React.createClass({
     render: function() {
         return (
-            <section className='bar'>
-                <main className='barMain'>
+            <section>
+                <main>
                     {this.props.mainContent}
                 </main>
             </section>
@@ -94,9 +94,20 @@ var ChanView = React.createClass({
     }
 });
 var UserNameSelectView = React.createClass({
+    handleUsername: function(ev) {
+        if (ev.keyCode === 13) {
+            ev.preventDefault();
+            el = this.refs.usernameInput.getDOMNode();
+            usernameB.push(el.value);
+            el.value = "";
+        }
+    },
     render: function() {
+        var inp = (
+            <input onKeyDown={this.handleUsername} ref='usernameInput' type='text'/>
+        );
         return (
-            <Bar mainContent={<div>UserNameSelectView</div>} />
+            <Bar mainContent={inp} />
         );
     }
 });
