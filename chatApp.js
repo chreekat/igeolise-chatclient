@@ -8,7 +8,7 @@ var toggleChanSelectB = new Bacon.Bus(),
 
 var topViewE = usernameB.flatMapLatest(function (username) {
     if (username === null) {
-        return function() { <UserNameSelectView/> };
+        return function() { <UsernameSelectView/> };
     } else {
         return toggleChanSelectB
             .scan(false, function(prev) { return !prev })
@@ -30,7 +30,7 @@ var topViewE = usernameB.flatMapLatest(function (username) {
 });
 
 var chatAppStateProp = Bacon.combineTemplate({
-    topView: topViewE.toProperty(function() { return <UserNameSelectView /> }),
+    topView: topViewE.toProperty(function() { return <UsernameSelectView /> }),
     currentChannel: {
         name: "Chan 1",
         messages: [{
@@ -154,9 +154,9 @@ var ChatMessage = React.createClass({
 });
 
 
-// ## UserNameSelectView
+// ## UsernameSelectView
 
-var UserNameSelectView = React.createClass({
+var UsernameSelectView = React.createClass({
     handleUsername: function(ev) {
         if (ev.keyCode === 13) {
             ev.preventDefault();
