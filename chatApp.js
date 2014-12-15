@@ -157,6 +157,9 @@ var ChatMessage = React.createClass({
 // ## UsernameSelectView
 
 var UsernameSelectView = React.createClass({
+    componentDidMount: function() {
+        this.refs.usernameInput.getDOMNode().focus();
+    },
     handleUsername: function(ev) {
         if (ev.keyCode === 13) {
             ev.preventDefault();
@@ -167,7 +170,13 @@ var UsernameSelectView = React.createClass({
     },
     render: function() {
         var inp = (
-            <input onKeyDown={this.handleUsername} ref='usernameInput' type='text'/>
+            <label for='usernameInput'>Your username:
+                <input
+                    onKeyDown={this.handleUsername}
+                    ref='usernameInput'
+                    type='text'
+                    id='usernameInput'/>
+            </label>
         );
         return (
             <Dialog mainContent={inp} />
