@@ -1,4 +1,35 @@
-// REACT COMPONENTS
+// ACTION BUSES (top of the flow)
+var toggleChanSelectB = new Bacon.Bus()
+    ;
+// INTERMEDIATE LOGIC
+
+var topViewP = toggleChanSelectB
+    .scan(false, function(prev) { return !prev })
+    .decode({
+        true: function(state) {
+            return (
+                <ChanView channel={state.currentChannel} />
+            );
+        },
+        false: function(state) {
+            return (
+                <ChanSelectView
+                    channels={state.channels}
+                    currentChannel={state.currentChannel} />
+            );
+        }
+    });
+
+var chatAppStateProp = Bacon.combineTemplate({
+    topView: topViewP,
+    currentChannel: {
+        name: "Chan 1",
+        messages: "Some messages"
+    },
+    channels: ["chan 1", "chan 2"]
+});
+
+// REACT COMPONENTS (bottom of the flow)
 var ChatApp = React.createClass({
     componentWillMount: function() {
         // FIXME: Referencing a global here instead of an initialProp, due
@@ -6,19 +37,12 @@ var ChatApp = React.createClass({
         // a prop here, I get "onValue" not defined. If I use a prop, but
         // put it in componentDidMount, then I need to use getInitialState,
         // which feels unnecessary.)
-        //chanViewStateProp.onValue(this, "replaceState");
+        chatAppStateProp.onValue(this, "replaceState");
     },
     render: function() {
-        var chan = {
-            name: "Chan 1",
-            messages: "Some messages"
-        };
-        var channels = ["chan 1", "chan 2"];
         return (
             <div>
-                <ChanView channel={chan} />
-                //<ChanSelectView currentChannel={chan} channels={channels} />
-                //<UserNameSelectView />
+                {this.state.topView(this.state)}
             </div>
         );
     }
@@ -28,11 +52,12 @@ var ChatApp = React.createClass({
 var Foo = React.createClass({
     render: function() {
         return (
-            <section className='foo'>
-                <header className='fooHeader'>
-                    {this.props.title}
+            <section>
+                <header>
+                    <h2>{this.props.title}</h2>
+                    <button onClick={() => toggleChanSelectB.push()}>V</button>
                 </header>
-                <main className='fooMain'>
+                <main>
                     {this.props.mainContent}
                 </main>
             </section>
