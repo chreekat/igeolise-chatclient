@@ -1,8 +1,10 @@
-// ACTION BUSES (top of the flow)
+// # ACTION BUSES (top of the flow)
 var toggleChanSelectB = new Bacon.Bus(),
-    usernameB = new Bacon.Bus()
+    usernameB = new Bacon.Bus(),
+    messageB = new Bacon.Bus()
     ;
-// INTERMEDIATE LOGIC
+
+// # INTERMEDIATE LOGIC
 
 var topViewE = usernameB.flatMapLatest(function (username) {
     if (username === null) {
@@ -31,12 +33,16 @@ var chatAppStateProp = Bacon.combineTemplate({
     topView: topViewE.toProperty(function() { return <UserNameSelectView /> }),
     currentChannel: {
         name: "Chan 1",
-        messages: "Some messages"
+        messages: [{
+            user: "bob",
+            stamp: Date.now(),
+            text: "Some messages"
+        }]
     },
     channels: ["chan 1", "chan 2"]
 });
 
-// REACT COMPONENTS (bottom of the flow)
+// # REACT COMPONENTS (bottom of the flow)
 var ChatApp = React.createClass({
     componentWillMount: function() {
         // FIXME: Referencing a global here instead of an initialProp, due
@@ -55,7 +61,7 @@ var ChatApp = React.createClass({
     }
 });
 
-// Design framework
+// ## Design framework
 var Foo = React.createClass({
     render: function() {
         return (
@@ -84,15 +90,72 @@ var Dialog = React.createClass({
     }
 });
 
-// Chat components
+// ## Chat components
+
+// ### ChanView
 var ChanView = React.createClass({
+    handleChatMessage: function(ev) {
+        if (ev.keyCode === 13) {
+            ev.preventDefault();
+            var inputNode = this.refs.msg.getDOMNode();
+            messageB.push({
+                user: this.props.user,
+                stamp: Date.now(),
+                text: inputNode.value.trim()
+            });
+            inputNode.value = "";
+        }
+    },
     render: function() {
         var chan = this.props.channel;
+        var content = (
+            <div>
+                <ChatWindow messages={chan.messages} />
+                <textarea rows="3" ref="msg"
+                    onKeyDown={this.handleChatMessage} />
+            </div>
+        );
         return (
-            <Foo title={chan.name} mainContent={chan.messages} />
+            <Foo title={chan.name} mainContent={content} />
         );
     }
 });
+
+// ### subcomponents of ChanView
+var ChatWindow = React.createClass({
+    render: function() {
+        var nodes = this.props.messages.map(function(msg, idx) {
+            return (
+                <ChatMessage key={idx} {...msg} />
+            );
+        });
+        return (
+            <main>
+                {nodes}
+            </main>
+        );
+    }
+});
+var ChatMessage = React.createClass({
+    render: function() {
+        var date = (function(d) {
+            return String(d.getHours() + ":" + d.getMinutes());
+        }(new Date(this.props.stamp)));
+        return (
+            <section>
+                <div>
+                    <div>{this.props.user}</div>
+                    <time>{date}</time>
+                </div>
+                <main>{this.props.text}</main>
+            </section>
+        );
+    }
+});
+
+
+// ## UserNameSelectView
+
 var UserNameSelectView = React.createClass({
     handleUsername: function(ev) {
         if (ev.keyCode === 13) {
