@@ -1,27 +1,34 @@
 // ACTION BUSES (top of the flow)
-var toggleChanSelectB = new Bacon.Bus()
+var toggleChanSelectB = new Bacon.Bus(),
+    usernameB = new Bacon.Bus()
     ;
 // INTERMEDIATE LOGIC
 
-var topViewP = toggleChanSelectB
-    .scan(false, function(prev) { return !prev })
-    .decode({
-        true: function(state) {
-            return (
-                <ChanView channel={state.currentChannel} />
-            );
-        },
-        false: function(state) {
-            return (
-                <ChanSelectView
-                    channels={state.channels}
-                    currentChannel={state.currentChannel} />
-            );
-        }
-    });
+var topViewE = usernameB.flatMapLatest(function (username) {
+    if (username === null) {
+        return function() { <UserNameSelectView/> };
+    } else {
+        return toggleChanSelectB
+            .scan(false, function(prev) { return !prev })
+            .decode({
+                true: function(state) {
+                    return (
+                        <ChanView channel={state.currentChannel} />
+                    );
+                },
+                false: function(state) {
+                    return (
+                        <ChanSelectView
+                            channels={state.channels}
+                            currentChannel={state.currentChannel} />
+                    );
+                }
+        });
+    }
+});
 
 var chatAppStateProp = Bacon.combineTemplate({
-    topView: topViewP,
+    topView: topViewE.toProperty(function() { return <UserNameSelectView /> }),
     currentChannel: {
         name: "Chan 1",
         messages: "Some messages"
