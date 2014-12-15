@@ -72,7 +72,7 @@ var Foo = React.createClass({
     }
 });
 
-var Bar = React.createClass({
+var Dialog = React.createClass({
     render: function() {
         return (
             <section>
@@ -107,7 +107,7 @@ var UserNameSelectView = React.createClass({
             <input onKeyDown={this.handleUsername} ref='usernameInput' type='text'/>
         );
         return (
-            <Bar mainContent={inp} />
+            <Dialog mainContent={inp} />
         );
     }
 });
