@@ -1,17 +1,51 @@
 // # ACTION BUSES (top of the flow)
 var toggleChanSelectB = new Bacon.Bus(),
     usernameB = new Bacon.Bus(),
-    messageB = new Bacon.Bus()
+    messageB = new Bacon.Bus(),
+    joinB = new Bacon.Bus(),
+    serverBuses = {
+        channelAvailable: new Bacon.Bus(),
+        joinedChannel: new Bacon.Bus(),
+        userJoined: new Bacon.Bus(),
+        channelCreated: new Bacon.Bus(),
+        incomingMsg: new Bacon.Bus(),
+        userLeft: new Bacon.Bus(),
+        serverError: new Bacon.Bus(),
+        clientError: new Bacon.Bus()
+    }
     ;
 
 // # INTERMEDIATE LOGIC
 
+// ## Server!
+var chatServer = Server(
+    baconSocket("ws://localhost:9000/chat"),
+    serverBuses
+);
+
+// Register when we get a username
+usernameB.take(1).onValue(chatServer, "register");
+
+// Pass join and message events to server
+joinB.onValue(chatServer, "joinChannel");
+messageB.onValue(function(msg) {
+    chatServer.msg(msg.channel, msg.message)
+});
+
+// Join the main server as soon as it becomes available.
+serverBuses.channelAvailable
+    .filter(function(chan) { return (chan === "main" ) })
+    .take(1)
+    .onValue(function() {
+        joinB.push("main");
+    });
+// Choose the top view based on username and toggleChanSelect
 var topViewE = usernameB.flatMapLatest(function (username) {
     if (username === null) {
         return function() { <UsernameSelectView/> };
     } else {
         return toggleChanSelectB
-            .scan(false, function(prev) { return !prev })
+            .scan(true, function(prev) { return !prev })
             .decode({
                 true: function(state) {
                     return (
@@ -29,16 +63,16 @@ var topViewE = usernameB.flatMapLatest(function (username) {
     }
 });
 
+// Build the reactive state for the top-level component.
 var chatAppStateProp = Bacon.combineTemplate({
     topView: topViewE.toProperty(function() { return <UsernameSelectView /> }),
-    currentChannel: {
-        name: "Chan 1",
-        messages: [{
-            user: "bob",
-            stamp: Date.now(),
-            text: "Some messages"
-        }]
-    },
+    // TODO: start value should be null which should be handled by the
+    // view.
+    currentChannel: serverBuses.joinedChannel.toProperty({
+        name: "<>",
+        users: [],
+        messages: []
+    }),
     channels: ["chan 1", "chan 2"]
 });
 
@@ -99,9 +133,8 @@ var ChanView = React.createClass({
             ev.preventDefault();
             var inputNode = this.refs.msg.getDOMNode();
             messageB.push({
-                user: this.props.user,
-                stamp: Date.now(),
-                text: inputNode.value.trim()
+                channel: this.props.channel.name,
+                message: inputNode.value.trim()
             });
             inputNode.value = "";
         }
@@ -170,7 +203,7 @@ var UsernameSelectView = React.createClass({
     },
     render: function() {
         var inp = (
-            <label for='usernameInput'>Your username:
+            <label htmlFor='usernameInput'>Your username:
                 <input
                     onKeyDown={this.handleUsername}
                     ref='usernameInput'
