@@ -1,6 +1,5 @@
 /* Developing a Bacon.js (FRP) interface to websockets.
  *
- * I'll wrap the usual ws object as an EventStream that exposes send, close, etc.
  */
 
 var baconSocket = function(url, protocols) {
@@ -15,8 +14,7 @@ var baconSocket = function(url, protocols) {
         wsErr,
         outStream;
 
-    // Construct the WS as part of initializing the ES, and push all errors
-    // out the ES's pipe.
+    // Push all errors out the ES's pipe.
     try {
         ws = new WebSocket(url, protocols);
     } catch (err) {
@@ -28,7 +26,6 @@ var baconSocket = function(url, protocols) {
             sink(Bacon.once(new Bacon.Error(err)));
             // TODO: short-circuit everything else below?
         }
-        // Push *all* messages out the ES's pipe. Subject to redesign.
         ws.onmessage = sink;
         ws.onerror = function(err) {
             sink(new Bacon.Error(err));

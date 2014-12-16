@@ -83,7 +83,7 @@ var Server = function(serverBacon, buses) {
             buses.clientError.push({
                 // TODO: types, not strings
                 type: "Unknown server message",
-                unknownMessage: $variant
+                unknownMessage: { "$variant": $variant, ...data }
             });
         }
     });
