@@ -73,11 +73,12 @@ var chatAppStateProp = Bacon.combineTemplate({
     topView: topViewE.toProperty(function() { return <UsernameSelectView /> }),
     // TODO: start value should be null which should be handled by the
     // view.
-    currentChannel: serverBuses.joinedChannel.toProperty({
-        name: "<>",
-        users: [],
-        messages: []
-    }),
+    currentChannel: serverBuses.joinedChannel
+        .toProperty({
+            name: "<>",
+            users: [],
+            messages: []
+        }),
     channels: availableChannelsP
 });
 
