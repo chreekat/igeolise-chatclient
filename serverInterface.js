@@ -10,7 +10,6 @@ var Server = function(serverBacon, buses) {
     //     channelAvailable: Bus,
     //     joinedChannel: Bus,
     //     userJoined: Bus,
-    //     channelCreated,
     //     incomingMsg,
     //     userLeft,
     //     serverError,
@@ -68,7 +67,7 @@ var Server = function(serverBacon, buses) {
             buses.userJoined.push(data);
             break;
         case "ChannelCreated":
-            buses.channelCreated.push(data);
+            buses.channelAvailable.push(data);
             break;
         case "Msg":
             buses.incomingMsg.push(data);
