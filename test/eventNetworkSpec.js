@@ -25,7 +25,7 @@ describe("eventNetwork", function() {
 
         it("reacts to serverBuses.joinedChannel", function(done) {
             chansP.skip(1).onValue(function(chans) {
-                expect(chans.asgard).toBeDefined();
+                expect(chans.channels.asgard).toBeDefined();
                 done();
             });
             serverBuses.joinedChannel.push({name: "asgard"});
@@ -33,7 +33,7 @@ describe("eventNetwork", function() {
 
         it("reacts to serverBuses.incomingMsg", function(done) {
             chansP.skip(2).onValue(function(chans) {
-                expect(chans.asgard.messages).toEqual([
+                expect(chans.channels.asgard.messages).toEqual([
                     {user: {name: "tyr"}, stamp: 141708891560, text: "Aah"}
                 ]);
                 done();
@@ -49,7 +49,7 @@ describe("eventNetwork", function() {
 
         it("reacts to serverBuses.userJoined", function(done) {
             chansP.skip(2).onValue(function(chans) {
-                expect(chans.asgard.users).toEqual([
+                expect(chans.channels.asgard.users).toEqual([
                     {name: "tyr"},
                     {name: "ratatoskr"}
                 ]);
@@ -64,7 +64,7 @@ describe("eventNetwork", function() {
 
         it("reacts to serverBuses.userLeft", function(done) {
             chansP.skip(2).onValue(function(chans) {
-                expect(chans.asgard.users).toEqual([
+                expect(chans.channels.asgard.users).toEqual([
                     {name: "tyr"},
                     {name: "ratatoskr"},
                     {name: "woden"}

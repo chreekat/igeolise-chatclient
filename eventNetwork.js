@@ -16,28 +16,28 @@ var EventNetwork = {
     channelStoreP: function(serverBuses) {
         // joinedChannel
         return serverBuses.joinedChannel
-        .scan({}, function(chanStore, chan) {
-            chanStore[chan.name] = chan
+        .scan({channels:{}}, function(chanStore, chan) {
+            chanStore.channels[chan.name] = chan
             return chanStore;
         })
         // incomingMsg
         .flatMapLatest(function(chanStore) {
             return serverBuses.incomingMsg.scan(chanStore, function(chanStore, m) {
-                chanStore[m.channel].messages.push(m.message);
+                chanStore.channels[m.channel].messages.push(m.message);
                 return chanStore;
             });
         })
         // userJoined
         .flatMapLatest(function(chanStore) {
             return serverBuses.userJoined.scan(chanStore, function(chanStore, u) {
-                chanStore[u.channel].users.push(u.user);
+                chanStore.channels[u.channel].users.push(u.user);
                 return chanStore;
             });
         })
         // userLeft
         .flatMapLatest(function(chanStore) {
             return serverBuses.userLeft.scan(chanStore, function(chanStore, u) {
-                var userList = chanStore[u.channel].users;
+                var userList = chanStore.channels[u.channel].users;
                 var idx = findIndex.call(userList, function(user) {
                     return user.name === u.user.name;
                 });
