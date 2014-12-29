@@ -10,10 +10,10 @@ var findIndex = function(predicate) {
 
 // 1. The store itself is modified on channelAvailable and joinChannel events.
 // 2. Store elements are modified on userJoined, userLeft, and incomingMsg.
-var EventNetwork = {
-    channelStoreP: function(appBuses, serverBuses) {
+var EventNetwork = function(appBuses, serverBuses) {
+    var channelStoreP =
         // server.joinedChannel
-        return serverBuses.joinedChannel
+        serverBuses.joinedChannel
         .scan({current: null, channels:{}}, function(chanStore, chan) {
             chanStore.channels[chan.name] = chan;
             return chanStore;
@@ -53,5 +53,7 @@ var EventNetwork = {
             });
         })
         ;
-    }
+    return {
+        channelStoreP: channelStoreP
+    };
 };

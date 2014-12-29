@@ -23,7 +23,7 @@ describe("eventNetwork", function() {
                 userJoined: new Bacon.Bus(),
                 userLeft: new Bacon.Bus()
             };
-            chansP = EventNetwork.channelStoreP(appBuses, serverBuses);
+            chansP = EventNetwork(appBuses, serverBuses).channelStoreP;
         });
 
         it("reacts to serverBuses.joinedChannel", function(done) {
