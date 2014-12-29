@@ -13,38 +13,38 @@ var findIndex = function(predicate) {
 // 1. The list itself is modified on channelAvailable events.
 // 2. List elements are modified on userJoined, userLeft, and incomingMsg.
 var EventNetwork = {
-    joinedChannelsP: function(serverBuses) {
+    channelStoreP: function(serverBuses) {
         // joinedChannel
         return serverBuses.joinedChannel
-        .scan({}, function(chanMap, chan) {
-            chanMap[chan.name] = chan
-            return chanMap;
+        .scan({}, function(chanStore, chan) {
+            chanStore[chan.name] = chan
+            return chanStore;
         })
         // incomingMsg
-        .flatMapLatest(function(chanMap) {
-            return serverBuses.incomingMsg.scan(chanMap, function(chanMap, m) {
-                chanMap[m.channel].messages.push(m.message);
-                return chanMap;
+        .flatMapLatest(function(chanStore) {
+            return serverBuses.incomingMsg.scan(chanStore, function(chanStore, m) {
+                chanStore[m.channel].messages.push(m.message);
+                return chanStore;
             });
         })
         // userJoined
-        .flatMapLatest(function(chanMap) {
-            return serverBuses.userJoined.scan(chanMap, function(chanMap, u) {
-                chanMap[u.channel].users.push(u.user);
-                return chanMap;
+        .flatMapLatest(function(chanStore) {
+            return serverBuses.userJoined.scan(chanStore, function(chanStore, u) {
+                chanStore[u.channel].users.push(u.user);
+                return chanStore;
             });
         })
         // userLeft
-        .flatMapLatest(function(chanMap) {
-            return serverBuses.userLeft.scan(chanMap, function(chanMap, u) {
-                var userList = chanMap[u.channel].users;
+        .flatMapLatest(function(chanStore) {
+            return serverBuses.userLeft.scan(chanStore, function(chanStore, u) {
+                var userList = chanStore[u.channel].users;
                 var idx = findIndex.call(userList, function(user) {
                     return user.name === u.user.name;
                 });
                 if (idx >= 0) {
                     userList.splice(idx, 1);
                 }
-                return chanMap;
+                return chanStore;
             });
         })
         ;

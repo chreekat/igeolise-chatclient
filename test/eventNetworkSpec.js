@@ -10,8 +10,8 @@ describe("findIndex", function () {
 
 describe("eventNetwork", function() {
 
-    describe("joinedChannelsP", function() {
-        var serverBuses, jchansP;
+    describe("channelStoreP", function() {
+        var serverBuses, chansP;
 
         beforeEach(function() {
             serverBuses = {
@@ -20,20 +20,20 @@ describe("eventNetwork", function() {
                 userJoined: new Bacon.Bus(),
                 userLeft: new Bacon.Bus()
             };
-            jchansP = EventNetwork.joinedChannelsP(serverBuses);
+            chansP = EventNetwork.channelStoreP(serverBuses);
         });
 
         it("reacts to serverBuses.joinedChannel", function(done) {
-            jchansP.skip(1).onValue(function(jchans) {
-                expect(jchans.asgard).toBeDefined();
+            chansP.skip(1).onValue(function(chans) {
+                expect(chans.asgard).toBeDefined();
                 done();
             });
             serverBuses.joinedChannel.push({name: "asgard"});
         });
 
         it("reacts to serverBuses.incomingMsg", function(done) {
-            jchansP.skip(2).onValue(function(jchans) {
-                expect(jchans.asgard.messages).toEqual([
+            chansP.skip(2).onValue(function(chans) {
+                expect(chans.asgard.messages).toEqual([
                     {user: {name: "tyr"}, stamp: 141708891560, text: "Aah"}
                 ]);
                 done();
@@ -48,8 +48,8 @@ describe("eventNetwork", function() {
         });
 
         it("reacts to serverBuses.userJoined", function(done) {
-            jchansP.skip(2).onValue(function(jchans) {
-                expect(jchans.asgard.users).toEqual([
+            chansP.skip(2).onValue(function(chans) {
+                expect(chans.asgard.users).toEqual([
                     {name: "tyr"},
                     {name: "ratatoskr"}
                 ]);
@@ -63,15 +63,15 @@ describe("eventNetwork", function() {
         });
 
         it("reacts to serverBuses.userLeft", function(done) {
-            jchansP.skip(2).onValue(function(jchans) {
-                expect(jchans.asgard.users).toEqual([
+            chansP.skip(2).onValue(function(chans) {
+                expect(chans.asgard.users).toEqual([
                     {name: "tyr"},
                     {name: "ratatoskr"},
                     {name: "woden"}
                 ]);
                 done();
             });
-            jchansP.log();
+            chansP.log();
             serverBuses.joinedChannel.push({
                 name: "asgard",
                 users: [
