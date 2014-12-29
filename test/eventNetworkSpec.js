@@ -1,3 +1,13 @@
+describe("findIndex", function () {
+    it("works", function() {
+        var x = [1,2,3,4];
+        expect(findIndex.call(x, function(el) {return el === 2}))
+        .toBe(1);
+        expect(findIndex.call(x, function(el) {return el === 18}))
+        .toBe(-1);
+    });
+});
+
 describe("eventNetwork", function() {
 
     describe("joinedChannelsP", function() {

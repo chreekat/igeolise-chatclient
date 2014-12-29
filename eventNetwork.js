@@ -1,7 +1,7 @@
 var findIndex = function(predicate) {
     var i;
     for(i = 0; i < this.length; i++) {
-        if (predicate(this[i], i)) {
+        if (predicate(this[i])) {
             return i;
         }
     }
