@@ -57,7 +57,7 @@ var Server = function(serverBacon, buses) {
         switch ($variant) {
         case "Channels":
             data.names.map(function(name) {
-                buses.channelAvailable.push(name);
+                buses.channelAvailable.push({name: name});
             });
             break;
         case "JoinChannel":
