@@ -196,16 +196,22 @@ var ChanView = React.createClass({
     },
     render: function() {
         var chan = this.props.channel;
-        var content = (
-            <div>
-                <ChatWindow messages={chan.messages} />
-                <textarea rows="3" ref="msg"
-                    onKeyDown={this.handleChatMessage} />
-            </div>
-        );
-        return (
-            <Foo title={chan.name} mainContent={content} />
-        );
+        var content, title;
+        if (chan !== null) {
+            title = chan.name;
+            content = (
+                <div>
+                    <ChatWindow messages={chan.messages} />
+                    <textarea rows="3" ref="msg"
+                        onKeyDown={this.handleChatMessage} />
+                </div>
+            );
+        } else {
+            title = "<>";
+            content = "Loading...";
+
+        }
+        return (<Foo title={title} mainContent={content} />);
     }
 });
 
@@ -274,8 +280,9 @@ var UsernameSelectView = React.createClass({
 var ChanSelectView = React.createClass({
     render: function() {
         var chan = this.props.currentChannel;
+        var title = (chan !== null ? chan.name : "<>");
         return (
-            <Foo title={chan.name} mainContent={this.props.channels} />
+            <Foo title={title} mainContent={this.props.channels} />
         );
     }
 });
