@@ -2,7 +2,7 @@
 var toggleChanSelectB = new Bacon.Bus(),
     usernameB = new Bacon.Bus(),
     messageB = new Bacon.Bus(),
-    joinB = new Bacon.Bus(),
+    joinChannelB = new Bacon.Bus(),
     serverBuses = {
         channelAvailable: new Bacon.Bus(),
         joinedChannel: new Bacon.Bus(),
@@ -25,18 +25,17 @@ var chatServer = Server(
 // Register when we get a username
 usernameB.take(1).onValue(chatServer, "register");
 
-// Pass join and message events to server
-joinB.onValue(chatServer, "joinChannel");
+// Pass message events to server
 messageB.onValue(function(msg) {
     chatServer.msg(msg.channel, msg.message)
 });
 
 // Join the main server as soon as it becomes available.
 serverBuses.channelAvailable
-    .filter(function(chan) { return (chan === "main" ) })
+    .filter(function(chan) { return (chan === "main") })
     .take(1)
     .onValue(function() {
-        joinB.push("main");
+        joinChannelB.push("main");
     });
 
 // Keep a list of available channels
