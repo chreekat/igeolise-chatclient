@@ -8,17 +8,22 @@ var findIndex = function(predicate) {
     return -1;
 };
 
-// Also keep a list of joined channels. We get modifier events for joined
-// channels, so this becomes slightly complicated.
-// 1. The list itself is modified on channelAvailable events.
-// 2. List elements are modified on userJoined, userLeft, and incomingMsg.
+// 1. The store itself is modified on channelAvailable and joinChannel events.
+// 2. Store elements are modified on userJoined, userLeft, and incomingMsg.
 var EventNetwork = {
-    channelStoreP: function(serverBuses) {
-        // joinedChannel
+    channelStoreP: function(appBuses, serverBuses) {
+        // server.joinedChannel
         return serverBuses.joinedChannel
-        .scan({channels:{}}, function(chanStore, chan) {
-            chanStore.channels[chan.name] = chan
+        .scan({current: null, channels:{}}, function(chanStore, chan) {
+            chanStore.channels[chan.name] = chan;
             return chanStore;
+        })
+        // app.joinChannel
+        .flatMapLatest(function(chanStore) {
+            return appBuses.joinChannel.scan(chanStore, function(chanStore, jchan) {
+                chanStore.current = jchan;
+                return chanStore;
+            });
         })
         // incomingMsg
         .flatMapLatest(function(chanStore) {

@@ -11,16 +11,19 @@ describe("findIndex", function () {
 describe("eventNetwork", function() {
 
     describe("channelStoreP", function() {
-        var serverBuses, chansP;
+        var appBuses, serverBuses, chansP;
 
         beforeEach(function() {
+            appBuses = {
+                joinChannel: new Bacon.Bus()
+            };
             serverBuses = {
                 joinedChannel: new Bacon.Bus(),
                 incomingMsg: new Bacon.Bus(),
                 userJoined: new Bacon.Bus(),
                 userLeft: new Bacon.Bus()
             };
-            chansP = EventNetwork.channelStoreP(serverBuses);
+            chansP = EventNetwork.channelStoreP(appBuses, serverBuses);
         });
 
         it("reacts to serverBuses.joinedChannel", function(done) {
@@ -29,6 +32,14 @@ describe("eventNetwork", function() {
                 done();
             });
             serverBuses.joinedChannel.push({name: "asgard"});
+        });
+
+        it('reacts to appBuses.joinChannel', function(done) {
+            chansP.skip(1).onValue(function(chans) {
+                expect(chans.current).toEqual("midgard");
+                done();
+            });
+            appBuses.joinChannel.push("midgard");
         });
 
         it("reacts to serverBuses.incomingMsg", function(done) {
