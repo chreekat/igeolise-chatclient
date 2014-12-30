@@ -8,22 +8,27 @@ describe("findIndex", function () {
     });
 });
 
-describe("eventNetwork", function() {
+describe("EventNetwork", function() {
+    var appBuses, serverBuses, chansP;
+
+    beforeEach(function() {
+        appBuses = {
+            joinChannel: new Bacon.Bus()
+        };
+        serverBuses = {
+            joinedChannel: new Bacon.Bus(),
+            incomingMsg: new Bacon.Bus(),
+            userJoined: new Bacon.Bus(),
+            userLeft: new Bacon.Bus()
+        };
+        eventNetwork = EventNetwork(appBuses, serverBuses);
+    });
 
     describe("channelStoreP", function() {
-        var appBuses, serverBuses, chansP;
+        var chansP;
 
         beforeEach(function() {
-            appBuses = {
-                joinChannel: new Bacon.Bus()
-            };
-            serverBuses = {
-                joinedChannel: new Bacon.Bus(),
-                incomingMsg: new Bacon.Bus(),
-                userJoined: new Bacon.Bus(),
-                userLeft: new Bacon.Bus()
-            };
-            chansP = EventNetwork(appBuses, serverBuses).channelStoreP;
+            chansP = eventNetwork.channelStoreP;
         });
 
         it("reacts to serverBuses.joinedChannel", function(done) {
@@ -82,7 +87,6 @@ describe("eventNetwork", function() {
                 ]);
                 done();
             });
-            chansP.log();
             serverBuses.joinedChannel.push({
                 name: "asgard",
                 users: [
