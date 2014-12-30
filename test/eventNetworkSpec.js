@@ -142,4 +142,11 @@ describe("EventNetwork", function() {
             appBuses.joinChannel.push("midgard");
         });
     });
+
+    describe("server comms", function() {
+        it("forwards channel joins");
+        it("doesn't forward channel join if already joined");
+        it("forwards messages");
+        it("joins main when it becomes available");
+    });
 });
