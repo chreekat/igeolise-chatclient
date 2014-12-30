@@ -1,8 +1,8 @@
 // # ACTION BUSES (top of the flow)
-var toggleChanSelectB = new Bacon.Bus(),
-    usernameB = new Bacon.Bus(),
-    messageB = new Bacon.Bus(),
-    appBuses = {
+var appBuses = {
+        toggleChanSelect: new Bacon.Bus(),
+        username: new Bacon.Bus(),
+        message: new Bacon.Bus(),
         joinChannel: new Bacon.Bus()
     },
     serverBuses = {
@@ -28,10 +28,10 @@ var chatServer = Server(
 );
 
 // Register when we get a username
-usernameB.take(1).onValue(chatServer, "register");
+appBuses.username.take(1).onValue(chatServer, "register");
 
 // Pass message events to server
-messageB.onValue(function(msg) {
+appBuses.message.onValue(function(msg) {
     chatServer.msg(msg.channel, msg.message)
 });
 
@@ -45,11 +45,11 @@ var availableChannelsP = serverBuses.channelAvailable.scan([], function(acc, cha
 });
 
 // Choose the top view based on username and toggleChanSelect
-var topViewE = usernameB.flatMapLatest(function (username) {
+var topViewE = appBuses.username.flatMapLatest(function (username) {
     if (username === null) {
         return function() { <UsernameSelectView/> };
     } else {
-        return toggleChanSelectB
+        return appBuses.toggleChanSelect
             .scan(true, function(prev) { return !prev })
             .decode({
                 true: function(state) {
@@ -103,7 +103,7 @@ var Foo = React.createClass({
             <section>
                 <header>
                     <h2>{this.props.title}</h2>
-                    <button onClick={() => toggleChanSelectB.push()}>V</button>
+                    <button onClick={() => appBuses.toggleChanSelect.push()}>V</button>
                 </header>
                 <main>
                     {this.props.mainContent}
@@ -204,7 +204,7 @@ var UsernameSelectView = React.createClass({
         if (ev.keyCode === 13) {
             ev.preventDefault();
             el = this.refs.usernameInput.getDOMNode();
-            usernameB.push(el.value);
+            appBuses.username.push(el.value);
             el.value = "";
         }
     },
