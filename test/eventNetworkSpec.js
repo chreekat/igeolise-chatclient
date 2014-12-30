@@ -9,7 +9,7 @@ describe("findIndex", function () {
 });
 
 describe("EventNetwork", function() {
-    var appBuses, serverBuses, chansP;
+    var appBuses, serverBuses, chansP, serverSpy;
 
     beforeEach(function() {
         appBuses = {
@@ -22,7 +22,8 @@ describe("EventNetwork", function() {
             userLeft: new Bacon.Bus(),
             channelAvailable: new Bacon.Bus()
         };
-        eventNetwork = EventNetwork(appBuses, serverBuses);
+        serverSpy = jasmine.createSpyObj("server", ["joinChannel"]);
+        eventNetwork = EventNetwork(appBuses, serverBuses, serverSpy);
     });
 
     describe("channelStoreP", function() {
@@ -145,7 +146,15 @@ describe("EventNetwork", function() {
 
     describe("server comms", function() {
         it("forwards channel joins");
-        it("doesn't forward channel join if already joined");
+        it("doesn't forward channel join if already joined", function(done) {
+            appBuses.joinChannel.onEnd(function() {
+                expect(serverSpy.joinChannel.calls.count()).toBe(1);
+                done();
+            });
+            appBuses.joinChannel.push("main");
+            appBuses.joinChannel.push("main");
+            appBuses.joinChannel.end();
+        });
         it("forwards messages");
         it("joins main when it becomes available");
     });
