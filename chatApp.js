@@ -130,7 +130,7 @@ var ChanView = React.createClass({
         if (ev.keyCode === 13) {
             ev.preventDefault();
             var inputNode = this.refs.msg.getDOMNode();
-            messageB.push({
+            appBuses.message.push({
                 channel: this.props.channel.name,
                 message: inputNode.value.trim()
             });
