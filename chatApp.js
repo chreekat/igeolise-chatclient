@@ -29,13 +29,19 @@ var chatServer = Server(
 // Register when we get a username
 appBuses.username.take(1).onValue(chatServer, "register");
 
-// Pass message events to server
+// Pass message and joinChannel events to server
 appBuses.message.onValue(function(msg) {
     chatServer.msg(msg.channel, msg.message)
 });
+appBuses.joinChannel.onValue(chatServer, "joinChannel");
 
-// Join the main server at startup
-appBuses.joinChannel.push("main");
+// Join the main server when it becomes available
+serverBuses.channelAvailable
+    .filter(function(chan) { return (chan.name === "main") })
+    .take(1)
+    .onValue(function() {
+        appBuses.joinChannel.push("main");
+    });
 
 // Choose the top view based on username and toggleChanSelect
 var topViewE = appBuses.username.flatMapLatest(function (username) {
