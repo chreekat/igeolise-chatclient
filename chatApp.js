@@ -16,16 +16,15 @@ var appBuses = {
     }
     ;
 
-// # INTERMEDIATE LOGIC
-
-eventNetwork = EventNetwork(appBuses, serverBuses);
-eventNetwork.channelStoreP.log();
+var eventNetwork = EventNetwork(appBuses, serverBuses);
 
 // ## Server!
 var chatServer = Server(
     baconSocket("ws://localhost:9000/chat"),
     serverBuses
 );
+
+// # INTERMEDIATE LOGIC
 
 // Register when we get a username
 appBuses.username.take(1).onValue(chatServer, "register");
@@ -68,8 +67,6 @@ var chatAppStateProp = Bacon.combineTemplate({
     currentChannel: eventNetwork.currentChannelP,
     channels: eventNetwork.availableChannelsP
 });
-
-chatAppStateProp.log();
 
 // # REACT COMPONENTS (bottom of the flow)
 var ChatApp = React.createClass({
