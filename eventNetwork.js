@@ -65,8 +65,15 @@ var EventNetwork = function(appBuses, serverBuses) {
         return curChan;
     });
 
+    // Keep a list of available channels
+    var availableChannelsP = serverBuses.channelAvailable.scan([], function(acc, chan) {
+        acc.push(chan);
+        return acc;
+    });
+
     return {
         channelStoreP: channelStoreP,
-        currentChannelP: currentChannelP
+        currentChannelP: currentChannelP,
+        availableChannelsP: availableChannelsP
     };
 };

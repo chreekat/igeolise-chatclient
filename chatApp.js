@@ -38,12 +38,6 @@ appBuses.message.onValue(function(msg) {
 // Join the main server at startup
 appBuses.joinChannel.push("main");
 
-// Keep a list of available channels
-var availableChannelsP = serverBuses.channelAvailable.scan([], function(acc, chan) {
-    acc.push(chan);
-    return acc;
-});
-
 // Choose the top view based on username and toggleChanSelect
 var topViewE = appBuses.username.flatMapLatest(function (username) {
     if (username === null) {
@@ -72,7 +66,7 @@ var topViewE = appBuses.username.flatMapLatest(function (username) {
 var chatAppStateProp = Bacon.combineTemplate({
     topView: topViewE.toProperty(function() { return <UsernameSelectView /> }),
     currentChannel: eventNetwork.currentChannelP,
-    channels: availableChannelsP
+    channels: eventNetwork.availableChannelsP
 });
 
 chatAppStateProp.log();
