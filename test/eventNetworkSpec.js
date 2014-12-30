@@ -102,4 +102,43 @@ describe("EventNetwork", function() {
             });
         });
     });
+
+    describe("currentChannelP", function() {
+        var curChanP;
+
+        beforeEach(function() {
+            curChanP = eventNetwork.currentChannelP;
+        });
+
+        it("switches from null to chan when it becomes available",
+                function(done) {
+            eventNetwork.currentChannelP
+                .skip(2).slidingWindow(2,2)
+                .onValue(function(curChans) {
+                    var beforeJoin = curChans[0],
+                        afterJoin = curChans[1];
+                    expect(beforeJoin).toBeNull();
+                    expect(afterJoin.name).toEqual("asgard");
+                    done();
+                });
+            appBuses.joinChannel.push("asgard");
+            serverBuses.joinedChannel.push({name: "asgard"});
+        });
+
+        it("switches from chan to null when it isn't available",
+                function(done) {
+            eventNetwork.currentChannelP
+                .skip(3).slidingWindow(2,2)
+                .onValue(function(curChans) {
+                    var before2ndJoin = curChans[0],
+                        after2ndJoin = curChans[1];
+                    expect(before2ndJoin.name).toEqual("asgard");
+                    expect(after2ndJoin).toBeNull();
+                    done();
+                });
+            appBuses.joinChannel.push("asgard");
+            serverBuses.joinedChannel.push({name: "asgard"});
+            appBuses.joinChannel.push("midgard");
+        });
+    });
 });
