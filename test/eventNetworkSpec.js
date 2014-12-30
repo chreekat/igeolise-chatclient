@@ -19,7 +19,8 @@ describe("EventNetwork", function() {
             joinedChannel: new Bacon.Bus(),
             incomingMsg: new Bacon.Bus(),
             userJoined: new Bacon.Bus(),
-            userLeft: new Bacon.Bus()
+            userLeft: new Bacon.Bus(),
+            channelAvailable: new Bacon.Bus()
         };
         eventNetwork = EventNetwork(appBuses, serverBuses);
     });
