@@ -2,7 +2,9 @@
 var toggleChanSelectB = new Bacon.Bus(),
     usernameB = new Bacon.Bus(),
     messageB = new Bacon.Bus(),
-    joinChannelB = new Bacon.Bus(),
+    appBuses = {
+        joinChannel: new Bacon.Bus()
+    },
     serverBuses = {
         channelAvailable: new Bacon.Bus(),
         joinedChannel: new Bacon.Bus(),
@@ -15,6 +17,9 @@ var toggleChanSelectB = new Bacon.Bus(),
     ;
 
 // # INTERMEDIATE LOGIC
+
+eventNetwork = EventNetwork(appBuses, serverBuses);
+eventNetwork.channelStoreP.log();
 
 // ## Server!
 var chatServer = Server(
@@ -30,21 +35,14 @@ messageB.onValue(function(msg) {
     chatServer.msg(msg.channel, msg.message)
 });
 
-// Join the main server as soon as it becomes available.
-serverBuses.channelAvailable
-    .filter(function(chan) { return (chan === "main") })
-    .take(1)
-    .onValue(function() {
-        joinChannelB.push("main");
-    });
+// Join the main server at startup
+appBuses.joinChannel.push("main");
 
 // Keep a list of available channels
 var availableChannelsP = serverBuses.channelAvailable.scan([], function(acc, chan) {
     acc.push(chan);
     return acc;
 });
-
-var joinedChannelsP = EventNetwork.joinedChannelsP(serverBuses);
 
 // Choose the top view based on username and toggleChanSelect
 var topViewE = usernameB.flatMapLatest(function (username) {
@@ -73,16 +71,11 @@ var topViewE = usernameB.flatMapLatest(function (username) {
 // Build the reactive state for the top-level component.
 var chatAppStateProp = Bacon.combineTemplate({
     topView: topViewE.toProperty(function() { return <UsernameSelectView /> }),
-    // TODO: start value should be null which should be handled by the
-    // view.
-    currentChannel: serverBuses.joinedChannel
-        .toProperty({
-            name: "<>",
-            users: [],
-            messages: []
-        }),
+    currentChannel: eventNetwork.currentChannelP,
     channels: availableChannelsP
 });
+
+chatAppStateProp.log();
 
 // # REACT COMPONENTS (bottom of the flow)
 var ChatApp = React.createClass({
