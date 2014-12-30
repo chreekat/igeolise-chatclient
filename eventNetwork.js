@@ -51,9 +51,22 @@ var EventNetwork = function(appBuses, serverBuses) {
                 }
                 return chanStore;
             });
-        })
-        ;
+    });
+
+    var currentChannelP = channelStoreP.scan(null, function(_, chanStore) {
+        var curChan = null;
+        if (typeof chanStore !== undefined && chanStore !== null &&
+                chanStore.channels !== undefined) {
+            var chan = chanStore.channels[chanStore.current];
+            if (chan !== undefined) {
+                curChan = chan;
+            }
+        }
+        return curChan;
+    });
+
     return {
-        channelStoreP: channelStoreP
+        channelStoreP: channelStoreP,
+        currentChannelP: currentChannelP
     };
 };
