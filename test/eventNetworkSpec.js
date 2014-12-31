@@ -1,3 +1,5 @@
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 100;
+
 describe("findIndex", function () {
     it("works", function() {
         var x = [1,2,3,4];
@@ -11,7 +13,8 @@ describe("findIndex", function () {
 describe("EventNetwork", function() {
     beforeEach(function() {
         this.appBuses = {
-            joinChannel: new Bacon.Bus()
+            joinChannel: new Bacon.Bus(),
+            leaveChannel: new Bacon.Bus()
         };
         this.serverBuses = {
             joinedChannel: new Bacon.Bus(),
@@ -37,6 +40,16 @@ describe("EventNetwork", function() {
             });
             this.serverBuses.joinedChannel.push({name: "asgard"});
         });
+
+        it('reacts to appBuses.leaveChannel', function(done) {
+            this.chansP.skip(2).map('.channels').onValue(function(chans) {
+                expect(chans.asgard).toBeUndefined();
+                done();
+            });
+            this.serverBuses.joinedChannel.push({name: "asgard"});
+            this.appBuses.leaveChannel.push("asgard");
+        });
+
 
         it('reacts to appBuses.joinChannel', function(done) {
             this.chansP.skip(1).onValue(function(chans) {
