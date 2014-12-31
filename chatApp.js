@@ -3,7 +3,8 @@ var appBuses = {
         toggleChanSelect: new Bacon.Bus(),
         username: new Bacon.Bus(),
         message: new Bacon.Bus(),
-        joinChannel: new Bacon.Bus()
+        joinChannel: new Bacon.Bus(),
+        leaveChannel: new Bacon.Bus()
     },
     serverBuses = {
         channelAvailable: new Bacon.Bus(),
@@ -31,10 +32,11 @@ var eventNetwork = new EventNetwork(appBuses, serverBuses, chatServer);
 // Register when we get a username
 appBuses.username.take(1).onValue(chatServer, "register");
 
-// Pass message and joinChannel events to server
+// Pass message and leaveChannel events to server
 appBuses.message.onValue(function(msg) {
     chatServer.msg(msg.channel, msg.message)
 });
+appBuses.leaveChannel.onValue(chatServer, "leaveChannel");
 
 // Join the main server when it becomes available
 serverBuses.channelAvailable
@@ -251,10 +253,17 @@ var ChanOptions = React.createClass({
                 el.value = "";
             }
         };
+        var leaveChannel = function(chan) {
+            return function(ev) {
+                ev.stopPropagation();
+                appBuses.leaveChannel.push(chan);
+            };
+        };
         var options = this.props.channels.map(function(chan) {
             return (
                 <li key={chan.name} onClick={handleSelect(chan.name)}>
-                    {chan.name}
+                    <span>{chan.name}</span>
+                    <span onClick={leaveChannel(chan.name)}>[leave]</span>
                 </li>
             );
         });
