@@ -16,13 +16,13 @@ var appBuses = {
     }
     ;
 
-var eventNetwork = EventNetwork(appBuses, serverBuses);
-
 // ## Server!
 var chatServer = Server(
     baconSocket("ws://localhost:9000/chat"),
     serverBuses
 );
+
+var eventNetwork = EventNetwork(appBuses, serverBuses, chatServer);
 
 // # INTERMEDIATE LOGIC
 
@@ -33,7 +33,6 @@ appBuses.username.take(1).onValue(chatServer, "register");
 appBuses.message.onValue(function(msg) {
     chatServer.msg(msg.channel, msg.message)
 });
-appBuses.joinChannel.onValue(chatServer, "joinChannel");
 
 // Join the main server when it becomes available
 serverBuses.channelAvailable
