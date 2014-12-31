@@ -10,7 +10,7 @@ var findIndex = function(predicate) {
 
 // 1. The store itself is modified on channelAvailable and joinChannel events.
 // 2. Store elements are modified on userJoined, userLeft, and incomingMsg.
-var EventNetwork = function(appBuses, serverBuses) {
+var EventNetwork = function(appBuses, serverBuses, chatServer) {
     var channelStoreP =
         // server.joinedChannel
         serverBuses.joinedChannel
@@ -50,7 +50,18 @@ var EventNetwork = function(appBuses, serverBuses) {
                     userList.splice(idx, 1);
                 }
                 return chanStore;
-            });
+            })
+        // Pass join events to server, if we aren't already joined.
+        //
+        // This is why I needed current and channels in the same object,
+        // altough I'm not convinced this is the right solution.
+        .doAction(function(chanStore) {
+            if (chanStore.current !== null
+                    && chanStore.channels[chanStore.current] === undefined) {
+                chatServer.joinChannel(chanStore.current);
+            }
+        });
+
     });
 
     var currentChannelP = channelStoreP.scan(null, function(_, chanStore) {
