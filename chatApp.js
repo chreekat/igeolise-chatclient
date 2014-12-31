@@ -236,11 +236,20 @@ var ChanSelectView = React.createClass({
 });
 var ChanOptions = React.createClass({
     render: function() {
+        var that = this;
         var handleSelect = function(name) {
             return function() {
                 appBuses.joinChannel.push(name);
                 appBuses.toggleChanSelect.push();
             };
+        };
+        var handleNewChan = function(ev) {
+            if (ev.keyCode === 13) {
+                ev.preventDefault();
+                el = that.refs.newChannelInput.getDOMNode();
+                handleSelect(el.value)();
+                el.value = "";
+            }
         };
         var options = this.props.channels.map(function(chan) {
             return (
@@ -250,7 +259,12 @@ var ChanOptions = React.createClass({
             );
         });
         return (
-            <ul> {options} </ul>
+            <ul>
+                <li><input onKeyDown={handleNewChan} ref='newChannelInput'
+                    placeholder='New channel' />
+                </li>
+                {options}
+            </ul>
         );
     }
 });
