@@ -17,7 +17,7 @@ var appBuses = {
     ;
 
 // ## Server!
-var chatServer = Server(
+var chatServer = new Server(
     baconSocket("ws://localhost:9000/chat"),
     serverBuses
 );

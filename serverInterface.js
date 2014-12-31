@@ -16,8 +16,6 @@ var Server = function(serverBacon, buses) {
     //     clientError
     // }
 
-    var TheServer = {};
-
     var _sendData = function(obj) {
         serverBacon.socket.send(
             JSON.stringify(obj)
@@ -25,26 +23,26 @@ var Server = function(serverBacon, buses) {
     };
 
     // OUTPUT FUNCTIONS
-    TheServer.register = function(username) {
+    this.register = function(username) {
         _sendData({
             "$variant": "Register",
             user: {name: username}
         });
     };
-    TheServer.joinChannel = function(chan) {
+    this.joinChannel = function(chan) {
         _sendData({
             "$variant": "JoinChannel",
             name: chan
         });
     };
-    TheServer.msg = function(chan, msg) {
+    this.msg = function(chan, msg) {
         _sendData({
             "$variant": "Msg",
             channel: chan,
             message: msg
         });
     };
-    TheServer.leaveChannel = function(chan) {
+    this.leaveChannel = function(chan) {
         _sendData({
             "$variant": "LeaveChannel",
             name: chan
@@ -87,5 +85,4 @@ var Server = function(serverBacon, buses) {
         }
     });
 
-    return TheServer;
 };
