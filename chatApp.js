@@ -22,7 +22,7 @@ var chatServer = Server(
     serverBuses
 );
 
-var eventNetwork = EventNetwork(appBuses, serverBuses, chatServer);
+var eventNetwork = new EventNetwork(appBuses, serverBuses, chatServer);
 
 // # INTERMEDIATE LOGIC
 

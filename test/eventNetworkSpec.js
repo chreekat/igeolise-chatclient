@@ -21,7 +21,7 @@ describe("EventNetwork", function() {
             channelAvailable: new Bacon.Bus()
         };
         this.serverSpy = jasmine.createSpyObj("server", ["joinChannel"]);
-        this.eventNetwork = EventNetwork(
+        this.eventNetwork = new EventNetwork(
             this.appBuses, this.serverBuses, this.serverSpy);
     });
 

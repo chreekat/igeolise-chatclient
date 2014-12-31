@@ -11,7 +11,7 @@ var findIndex = function(predicate) {
 // 1. The store itself is modified on channelAvailable and joinChannel events.
 // 2. Store elements are modified on userJoined, userLeft, and incomingMsg.
 var EventNetwork = function(appBuses, serverBuses, chatServer) {
-    var channelStoreP =
+    this.channelStoreP =
         // server.joinedChannel
         serverBuses.joinedChannel
         .scan({current: null, channels:{}}, function(chanStore, chan) {
@@ -64,7 +64,7 @@ var EventNetwork = function(appBuses, serverBuses, chatServer) {
 
     });
 
-    var currentChannelP = channelStoreP.scan(null, function(_, chanStore) {
+    this.currentChannelP = this.channelStoreP.scan(null, function(_, chanStore) {
         var curChan = null;
         if (typeof chanStore !== undefined && chanStore !== null &&
                 chanStore.channels !== undefined) {
@@ -77,14 +77,9 @@ var EventNetwork = function(appBuses, serverBuses, chatServer) {
     });
 
     // Keep a list of available channels
-    var availableChannelsP = serverBuses.channelAvailable.scan([], function(acc, chan) {
+    this.availableChannelsP = serverBuses.channelAvailable.scan([], function(acc, chan) {
         acc.push(chan);
         return acc;
     });
 
-    return {
-        channelStoreP: channelStoreP,
-        currentChannelP: currentChannelP,
-        availableChannelsP: availableChannelsP
-    };
 };
