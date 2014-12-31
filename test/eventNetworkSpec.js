@@ -9,55 +9,52 @@ describe("findIndex", function () {
 });
 
 describe("EventNetwork", function() {
-    var appBuses, serverBuses, chansP, serverSpy;
-
     beforeEach(function() {
-        appBuses = {
+        this.appBuses = {
             joinChannel: new Bacon.Bus()
         };
-        serverBuses = {
+        this.serverBuses = {
             joinedChannel: new Bacon.Bus(),
             incomingMsg: new Bacon.Bus(),
             userJoined: new Bacon.Bus(),
             userLeft: new Bacon.Bus(),
             channelAvailable: new Bacon.Bus()
         };
-        serverSpy = jasmine.createSpyObj("server", ["joinChannel"]);
-        eventNetwork = EventNetwork(appBuses, serverBuses, serverSpy);
+        this.serverSpy = jasmine.createSpyObj("server", ["joinChannel"]);
+        this.eventNetwork = EventNetwork(
+            this.appBuses, this.serverBuses, this.serverSpy);
     });
 
     describe("channelStoreP", function() {
-        var chansP;
-
         beforeEach(function() {
-            chansP = eventNetwork.channelStoreP;
+            this.chansP = this.eventNetwork.channelStoreP;
         });
 
         it("reacts to serverBuses.joinedChannel", function(done) {
-            chansP.skip(1).onValue(function(chans) {
+            this.chansP.skip(1).onValue(function(chans) {
                 expect(chans.channels.asgard).toBeDefined();
                 done();
             });
-            serverBuses.joinedChannel.push({name: "asgard"});
+            this.serverBuses.joinedChannel.push({name: "asgard"});
         });
 
         it('reacts to appBuses.joinChannel', function(done) {
-            chansP.skip(1).onValue(function(chans) {
+            this.chansP.skip(1).onValue(function(chans) {
                 expect(chans.current).toEqual("midgard");
                 done();
             });
-            appBuses.joinChannel.push("midgard");
+            this.appBuses.joinChannel.push("midgard");
         });
 
         it("reacts to serverBuses.incomingMsg", function(done) {
-            chansP.skip(2).onValue(function(chans) {
+            this.chansP.skip(2).onValue(function(chans) {
                 expect(chans.channels.asgard.messages).toEqual([
                     {user: {name: "tyr"}, stamp: 141708891560, text: "Aah"}
                 ]);
                 done();
             });
-            serverBuses.joinedChannel.push({name: "asgard", messages: []});
-            serverBuses.incomingMsg.push({
+            this.serverBuses.joinedChannel.push({name: "asgard", messages: []});
+            this.serverBuses.incomingMsg.push({
                 channel: "asgard",
                 message: {
                     user: {name: "tyr"}, stamp: 141708891560, text: "Aah"
@@ -66,22 +63,22 @@ describe("EventNetwork", function() {
         });
 
         it("reacts to serverBuses.userJoined", function(done) {
-            chansP.skip(2).onValue(function(chans) {
+            this.chansP.skip(2).onValue(function(chans) {
                 expect(chans.channels.asgard.users).toEqual([
                     {name: "tyr"},
                     {name: "ratatoskr"}
                 ]);
                 done();
             });
-            serverBuses.joinedChannel.push({name: "asgard", users: [{name: "tyr"}]});
-            serverBuses.userJoined.push({
+            this.serverBuses.joinedChannel.push({name: "asgard", users: [{name: "tyr"}]});
+            this.serverBuses.userJoined.push({
                 channel: "asgard",
                 user: {name: "ratatoskr"}
             });
         });
 
         it("reacts to serverBuses.userLeft", function(done) {
-            chansP.skip(2).onValue(function(chans) {
+            this.chansP.skip(2).onValue(function(chans) {
                 expect(chans.channels.asgard.users).toEqual([
                     {name: "tyr"},
                     {name: "ratatoskr"},
@@ -89,7 +86,7 @@ describe("EventNetwork", function() {
                 ]);
                 done();
             });
-            serverBuses.joinedChannel.push({
+            this.serverBuses.joinedChannel.push({
                 name: "asgard",
                 users: [
                     {name: "tyr"},
@@ -98,7 +95,7 @@ describe("EventNetwork", function() {
                     {name: "woden"}
                 ]
             });
-            serverBuses.userLeft.push({
+            this.serverBuses.userLeft.push({
                 channel: "asgard",
                 user: {name: "that other guy"}
             });
@@ -106,15 +103,13 @@ describe("EventNetwork", function() {
     });
 
     describe("currentChannelP", function() {
-        var curChanP;
-
         beforeEach(function() {
-            curChanP = eventNetwork.currentChannelP;
+            this.curChanP = this.eventNetwork.currentChannelP;
         });
 
         it("switches from null to chan when it becomes available",
                 function(done) {
-            eventNetwork.currentChannelP
+            this.curChanP
                 .skip(2).slidingWindow(2,2)
                 .onValue(function(curChans) {
                     var beforeJoin = curChans[0],
@@ -123,13 +118,13 @@ describe("EventNetwork", function() {
                     expect(afterJoin.name).toEqual("asgard");
                     done();
                 });
-            appBuses.joinChannel.push("asgard");
-            serverBuses.joinedChannel.push({name: "asgard"});
+            this.appBuses.joinChannel.push("asgard");
+            this.serverBuses.joinedChannel.push({name: "asgard"});
         });
 
         it("switches from chan to null when it isn't available",
                 function(done) {
-            eventNetwork.currentChannelP
+            this.curChanP
                 .skip(3).slidingWindow(2,2)
                 .onValue(function(curChans) {
                     var before2ndJoin = curChans[0],
@@ -138,23 +133,25 @@ describe("EventNetwork", function() {
                     expect(after2ndJoin).toBeNull();
                     done();
                 });
-            appBuses.joinChannel.push("asgard");
-            serverBuses.joinedChannel.push({name: "asgard"});
-            appBuses.joinChannel.push("midgard");
+            this.appBuses.joinChannel.push("asgard");
+            this.serverBuses.joinedChannel.push({name: "asgard"});
+            this.appBuses.joinChannel.push("midgard");
         });
     });
 
     describe("server comms", function() {
         it("forwards channel joins");
         it("doesn't forward channel join if already joined", function(done) {
-            appBuses.joinChannel.onEnd(function() {
-                expect(serverSpy.joinChannel.calls.count()).toBe(1);
+            var that = this;
+            // channelStore will update after each joinChannel, so:
+            this.eventNetwork.channelStoreP.skip(3).onValue(function() {
+                expect(that.serverSpy.joinChannel.calls.count()).toBe(1);
                 done();
             });
-            appBuses.joinChannel.push("main");
-            appBuses.joinChannel.push("main");
-            appBuses.joinChannel.end();
+            this.appBuses.joinChannel.push("asgard");
+            this.appBuses.joinChannel.push("asgard");
         });
+
         it("forwards messages");
         it("joins main when it becomes available");
     });
