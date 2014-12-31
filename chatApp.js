@@ -26,6 +26,8 @@ var eventNetwork = new EventNetwork(appBuses, serverBuses, chatServer);
 
 // # INTERMEDIATE LOGIC
 
+// TODO: Move more of this into the eventNetwork.
+
 // Register when we get a username
 appBuses.username.take(1).onValue(chatServer, "register");
 
@@ -224,7 +226,22 @@ var ChanSelectView = React.createClass({
         var chan = this.props.currentChannel;
         var title = (chan !== null ? chan.name : "<>");
         return (
-            <Foo title={title} mainContent={this.props.channels} />
+            <Foo title={title} mainContent={<ChanOptions channels={this.props.channels}/>} />
+        );
+    }
+});
+var ChanOptions = React.createClass({
+    handleSelect: function(name) {
+        appBuses.joinChannel.push(name);
+    },
+    render: function() {
+        var options = this.props.channels.map(function(chan) {
+            return (
+                <li key={chan.name} onClick={this.handleSelect}>{chan.name}</li>
+            );
+        });
+        return (
+            <ul> {options} </ul>
         );
     }
 });
