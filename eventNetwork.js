@@ -8,7 +8,8 @@ var findIndex = function(predicate) {
     return -1;
 };
 
-// 1. The store itself is modified on channelAvailable and joinChannel events.
+// 1. The store itself is modified on channelAvailable, joinChannel, and
+// leaveChannel events.
 // 2. Store elements are modified on userJoined, userLeft, and incomingMsg.
 var EventNetwork = function(appBuses, serverBuses, chatServer) {
     this.channelStoreP =
@@ -17,6 +18,18 @@ var EventNetwork = function(appBuses, serverBuses, chatServer) {
         .scan({current: null, channels:{}}, function(chanStore, chan) {
             chanStore.channels[chan.name] = chan;
             return chanStore;
+        })
+        // app.leaveChannel
+        .flatMapLatest(function(chanStore) {
+            return appBuses.leaveChannel.scan(chanStore, function(chanStore, leftChan) {
+                if (chanStore.channels[leftChan] !== undefined) {
+                    if (chanStore.current === leftChan) {
+                        chanStore.current = null;
+                    }
+                    delete chanStore.channels[leftChan];
+                }
+                return chanStore;
+            });
         })
         // app.joinChannel
         .flatMapLatest(function(chanStore) {
