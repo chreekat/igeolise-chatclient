@@ -221,23 +221,32 @@ var UsernameSelectView = React.createClass({
         );
     }
 });
+
+// ## ChanSelectView
+
 var ChanSelectView = React.createClass({
     render: function() {
         var chan = this.props.currentChannel;
         var title = (chan !== null ? chan.name : "<>");
         return (
-            <Foo title={title} mainContent={<ChanOptions channels={this.props.channels}/>} />
+            <Foo title={title}
+                mainContent={<ChanOptions channels={this.props.channels}/>} />
         );
     }
 });
 var ChanOptions = React.createClass({
-    handleSelect: function(name) {
-        appBuses.joinChannel.push(name);
-    },
     render: function() {
+        var handleSelect = function(name) {
+            return function() {
+                appBuses.joinChannel.push(name);
+                appBuses.toggleChanSelect.push();
+            };
+        };
         var options = this.props.channels.map(function(chan) {
             return (
-                <li key={chan.name} onClick={this.handleSelect}>{chan.name}</li>
+                <li key={chan.name} onClick={handleSelect(chan.name)}>
+                    {chan.name}
+                </li>
             );
         });
         return (
