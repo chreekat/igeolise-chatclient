@@ -51,6 +51,7 @@ var EventNetwork = function(appBuses, serverBuses, chatServer) {
                 }
                 return chanStore;
             })
+        })
         // Pass join events to server, if we aren't already joined.
         //
         // This is why I needed current and channels in the same object,
@@ -61,8 +62,6 @@ var EventNetwork = function(appBuses, serverBuses, chatServer) {
                 chatServer.joinChannel(chanStore.current);
             }
         });
-
-    });
 
     this.currentChannelP = this.channelStoreP.scan(null, function(_, chanStore) {
         var curChan = null;
