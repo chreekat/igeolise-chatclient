@@ -140,7 +140,24 @@ describe("EventNetwork", function() {
     });
 
     describe("server comms", function() {
-        it("forwards channel joins");
+        beforeEach(function() {
+            var that = this;
+            this.serverSpy.joinChannel.and.callFake(function(arg) {
+                that.serverBuses.joinedChannel.push({name: arg});
+            });
+        });
+
+        it("forwards channel joins", function(done) {
+            // channelStore will update after each joinChannel, so:
+            var that = this;
+            this.eventNetwork.channelStoreP.skip(3).onValue(function() {
+                expect(that.serverSpy.joinChannel.calls.count()).toBe(2);
+                done();
+            });
+            this.appBuses.joinChannel.push("asgard");
+            this.appBuses.joinChannel.push("midgard");
+        });
+
         it("doesn't forward channel join if already joined", function(done) {
             var that = this;
             // channelStore will update after each joinChannel, so:
