@@ -102,11 +102,12 @@ var Main = React.createClass({
         var {title, children, ...other} = this.props;
         return (
             <section {...other} className="main">
-                <header className="main--header">
-                    <h2>{title}</h2>
-                    <button onClick={() => appBuses.toggleChanSelect.push()}>V</button>
+                <header className="main-header">
+                    <h2 className="main-header-title">{title}</h2>
+                    <button onClick={() => appBuses.toggleChanSelect.push()}
+                        className="main-header-chanSelect">V</button>
                 </header>
-                <main className="main--content">
+                <main className="main-content">
                     {children}
                 </main>
             </section>
@@ -119,7 +120,7 @@ var Dialog = React.createClass({
         var {children, ...other} = this.props;
         return (
             <section {...other} className="dialog">
-                <main className="dialog--content">
+                <main className="dialog-content">
                     {children}
                 </main>
             </section>
@@ -157,7 +158,7 @@ var ChanView = React.createClass({
             return (
                 <Main onClick={this.focusInput} title={chan.name}>
                     <ChatWindow messages={chan.messages} />
-                    <textarea className="chanView--input" rows="3" ref="msg"
+                    <textarea className="chanView-input" rows="3" ref="msg"
                         onKeyDown={this.handleChatMessage} />
                 </Main>
             );
@@ -193,16 +194,15 @@ var ChatMessage = React.createClass({
         }(new Date(this.props.stamp)));
         return (
             <section className="chatMessage">
-                <div className="chatMessage--meta">
-                    <div className="chatMessage--name">{this.props.user}</div>
-                    <time className="chatMessage--date">{date}</time>
+                <div className="chatMessage-meta">
+                    <div className="chatMessage-name">{this.props.user}</div>
+                    <time className="chatMessage-date">{date}</time>
                 </div>
-                <main className="chatMessage--content">{this.props.text}</main>
+                <main className="chatMessage-content">{this.props.text}</main>
             </section>
         );
     }
 });
-
 
 // ## UsernameSelectView
 
