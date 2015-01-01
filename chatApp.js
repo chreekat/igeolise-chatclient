@@ -106,7 +106,7 @@ var Main = React.createClass({
                     <button onClick={() => appBuses.toggleChanSelect.push()}>V</button>
                 </header>
                 <main className="main--content">
-                    {this.props.mainContent}
+                    {this.props.children}
                 </main>
             </section>
         );
@@ -129,6 +129,11 @@ var Dialog = React.createClass({
 
 // ### ChanView
 var ChanView = React.createClass({
+    componentDidUpdate: function() {
+        if (this.refs.msg !== undefined) {
+            this.refs.msg.getDOMNode().focus();
+        }
+    },
     handleChatMessage: function(ev) {
         if (ev.keyCode === 13) {
             ev.preventDefault();
@@ -144,20 +149,20 @@ var ChanView = React.createClass({
         var chan = this.props.channel;
         var content, title;
         if (chan !== null) {
-            title = chan.name;
-            content = (
-                <div>
+            return (
+                <Main title={chan.name}>
                     <ChatWindow messages={chan.messages} />
-                    <textarea rows="3" ref="msg"
+                    <textarea className="chanView--input" rows="3" ref="msg"
                         onKeyDown={this.handleChatMessage} />
-                </div>
+                </Main>
             );
         } else {
-            title = "<>";
-            content = "Loading...";
-
+            return (
+                <Main title="Loading..." >
+                    Loading...
+                </Main>
+            );
         }
-        return (<Main title={title} mainContent={content} />);
     }
 });
 
