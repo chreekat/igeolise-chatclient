@@ -97,7 +97,7 @@ var ChatApp = React.createClass({
 });
 
 // ## Design framework
-var Foo = React.createClass({
+var Main = React.createClass({
     render: function() {
         return (
             <section>
@@ -157,7 +157,7 @@ var ChanView = React.createClass({
             content = "Loading...";
 
         }
-        return (<Foo title={title} mainContent={content} />);
+        return (<Main title={title} mainContent={content} />);
     }
 });
 
@@ -231,7 +231,7 @@ var ChanSelectView = React.createClass({
         var chan = this.props.currentChannel;
         var title = (chan !== null ? chan.name : "<>");
         return (
-            <Foo title={title}
+            <Main title={title}
                 mainContent={<ChanOptions channels={this.props.channels}/>} />
         );
     }
