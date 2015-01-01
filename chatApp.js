@@ -118,7 +118,7 @@ var Dialog = React.createClass({
         return (
             <section className="dialog">
                 <main className="dialog--content">
-                    {this.props.mainContent}
+                    {this.props.children}
                 </main>
             </section>
         );
@@ -214,18 +214,17 @@ var UsernameSelectView = React.createClass({
         }
     },
     render: function() {
-        var inp = (
-            <label htmlFor='usernameInput'>
-                <span>Your username: </span>
-                <input
-                    onKeyDown={this.handleUsername}
-                    ref='usernameInput'
-                    type='text'
-                    id='usernameInput'/>
-            </label>
-        );
         return (
-            <Dialog mainContent={inp} />
+            <Dialog>
+                <label htmlFor='usernameInput'>
+                    <span>Your username: </span>
+                    <input
+                        onKeyDown={this.handleUsername}
+                        ref='usernameInput'
+                        type='text'
+                        id='usernameInput'/>
+                </label>
+            </Dialog>
         );
     }
 });
@@ -237,8 +236,9 @@ var ChanSelectView = React.createClass({
         var chan = this.props.currentChannel;
         var title = (chan !== null ? chan.name : "<>");
         return (
-            <Main title={title}
-                mainContent={<ChanOptions channels={this.props.channels}/>} />
+            <Main title={title}>
+                <ChanOptions channels={this.props.channels}/>
+            </Main>
         );
     }
 });
