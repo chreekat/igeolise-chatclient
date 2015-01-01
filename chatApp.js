@@ -100,12 +100,12 @@ var ChatApp = React.createClass({
 var Main = React.createClass({
     render: function() {
         return (
-            <section>
-                <header>
+            <section className="main">
+                <header className="main--header">
                     <h2>{this.props.title}</h2>
                     <button onClick={() => appBuses.toggleChanSelect.push()}>V</button>
                 </header>
-                <main>
+                <main className="main--content">
                     {this.props.mainContent}
                 </main>
             </section>
@@ -116,8 +116,8 @@ var Main = React.createClass({
 var Dialog = React.createClass({
     render: function() {
         return (
-            <section>
-                <main>
+            <section className="dialog">
+                <main className="dialog--content">
                     {this.props.mainContent}
                 </main>
             </section>
@@ -170,7 +170,7 @@ var ChatWindow = React.createClass({
             );
         });
         return (
-            <main>
+            <main className="chatWindow">
                 {nodes}
             </main>
         );
@@ -182,12 +182,12 @@ var ChatMessage = React.createClass({
             return String(d.getHours() + ":" + d.getMinutes());
         }(new Date(this.props.stamp)));
         return (
-            <section>
-                <div>
-                    <div>{this.props.user}</div>
-                    <time>{date}</time>
+            <section className="chatMessage">
+                <div className="chatMessage--meta">
+                    <div className="chatMessage--name">{this.props.user}</div>
+                    <time className="chatMessage--date">{date}</time>
                 </div>
-                <main>{this.props.text}</main>
+                <main className="chatMessage--content">{this.props.text}</main>
             </section>
         );
     }
@@ -210,7 +210,8 @@ var UsernameSelectView = React.createClass({
     },
     render: function() {
         var inp = (
-            <label htmlFor='usernameInput'>Your username:
+            <label htmlFor='usernameInput'>
+                <span>Your username: </span>
                 <input
                     onKeyDown={this.handleUsername}
                     ref='usernameInput'
