@@ -1,5 +1,58 @@
 /* Minor reset */
 body {
-    margin: 0;
     font-family: sans-serif;
+}
+
+/* Design framework */
+.main {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.main-header {
+    background: lightblue;
+    border-radius: 4px;
+    padding: 5px;
+}
+.main-header-title {
+    display: inline;
+}
+.main-header-chanSelect {
+    float: right;
+}
+
+/* ChanView */
+.chanView-input {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    resize: none;
+}
+
+/* ChatMessage */
+.chatMessage {
+    margin-top: 0.5em;
+}
+.chatMessage:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.chatMessage-meta {
+    float: left;
+    background: lightgreen;
+    border-radius: 2px;
+    margin: 0 0.6em 0 0.3em;
+    padding: 5px;
+}
+.chatMessage-date {
+    text-align: right;
+    display: block;
+    font-size: 70%;
+}
+.chatMessage-data {
+    padding-top: 0.6em;
+    margin-left: 1em;
 }
