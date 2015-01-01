@@ -132,6 +132,9 @@ var Dialog = React.createClass({
 // ### ChanView
 var ChanView = React.createClass({
     componentDidUpdate: function() {
+        this.focusInput();
+    },
+    focusInput: function() {
         if (this.refs.msg !== undefined) {
             this.refs.msg.getDOMNode().focus();
         }
@@ -152,7 +155,7 @@ var ChanView = React.createClass({
         var content, title;
         if (chan !== null) {
             return (
-                <Main title={chan.name}>
+                <Main onClick={this.focusInput} title={chan.name}>
                     <ChatWindow messages={chan.messages} />
                     <textarea className="chanView--input" rows="3" ref="msg"
                         onKeyDown={this.handleChatMessage} />
