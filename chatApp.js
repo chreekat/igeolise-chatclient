@@ -99,14 +99,15 @@ var ChatApp = React.createClass({
 // ## Design framework
 var Main = React.createClass({
     render: function() {
+        var {title, children, ...other} = this.props;
         return (
-            <section className="main">
+            <section {...other} className="main">
                 <header className="main--header">
-                    <h2>{this.props.title}</h2>
+                    <h2>{title}</h2>
                     <button onClick={() => appBuses.toggleChanSelect.push()}>V</button>
                 </header>
                 <main className="main--content">
-                    {this.props.children}
+                    {children}
                 </main>
             </section>
         );
@@ -115,10 +116,11 @@ var Main = React.createClass({
 
 var Dialog = React.createClass({
     render: function() {
+        var {children, ...other} = this.props;
         return (
-            <section className="dialog">
+            <section {...other} className="dialog">
                 <main className="dialog--content">
-                    {this.props.children}
+                    {children}
                 </main>
             </section>
         );
