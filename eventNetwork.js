@@ -55,12 +55,14 @@ var EventNetwork = function(appBuses, serverBuses, chatServer) {
         // userLeft
         .flatMapLatest(function(chanStore) {
             return serverBuses.userLeft.scan(chanStore, function(chanStore, u) {
-                var userList = chanStore.channels[u.channel].users;
-                var idx = findIndex.call(userList, function(user) {
-                    return user.name === u.user.name;
-                });
-                if (idx >= 0) {
-                    userList.splice(idx, 1);
+                if (chanStore.channels[u.channel] !== undefined) {
+                    var userList = chanStore.channels[u.channel].users;
+                    var idx = findIndex.call(userList, function(user) {
+                        return user.name === u.user.name;
+                    });
+                    if (idx >= 0) {
+                        userList.splice(idx, 1);
+                    }
                 }
                 return chanStore;
             })
