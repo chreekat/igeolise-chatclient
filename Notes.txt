@@ -1,0 +1,89 @@
+~~~ 12-dec 14
+10:56: In the mobile view, this app has three top-level layouts:
+
+    - ChanView
+      - Depends on currentChannel.
+    - ChanSelectView
+      - Depends on list of channels
+    - SelectNameView
+      - No dependencies
+
+My current question is how to render them. Render *all* of them, and hide
+them based on state? Or render them selectively based on state?
+
+Aha. I prefer the latter, but felt there was something off about it. And
+there was. I was thinking of doing the selective rendering imperatively,
+and I should (of course) do it with FRP.
+
+15:33: Since the app changes at the top level, the top level component is
+going to be a reactive value. Well, the top level render function is
+reactive. What isn't reactive is the connections from reactive values to
+state.
+
+Question: how do you pass properties to a dynamically-defined child
+component?
+
+19:17: Oh, shit. I forgot that all the views will be visible in
+computer-view. Kinda sucks that I could do that logic in both CSS and
+Javascript - so which is better? Gonna go with CSS for now. Except "doing
+it in CSS" entails setting up a variable in JS, so the real options are "do
+it in JS" or "do it in JS and CSS". I guess I'll pick the former.
+
+~~~ 13-dec 14
+09:09: Oh yeah. Regarding "how to add children to a component",
+React.createElement has a second argument: child nodes.
+
+~~~ 14-dec 14
+10:10: I now have a reactive top level view. I just think it's a bit messy
+that it has some poorly-defined dependencies on its object-argument
+'state'. Getting rid of '...state' would help, at least.
+
+Alright, you know what? That's right, time for a rewrite!
+
+~~~ 25-dec 14
+A vision of a Baconified react appeared in my head. And then I got
+sidetracked.
+
+~~~ 28-dec 14
+08:13: Until I can get some benchmarks or a deeper understanding of React's
+internals, I will be conservative about fitting Bacon into React. I'll
+leave the interface where it is, which is at updating the top-level
+component's state.
+
+08:22: Copying a message in from code:
+
+// JAVASCRIPT. A typo here, "flapMapLatest", caused the wonderful error
+// message, "undefined is not a function".
+
+~~~ 01-jan 15
+21:28: I have realized that my current network model, which is a long
+string of flatMaps of various streams, could be modeled as a single stream
+terminating in a withStateMachine. All the inputs of the current menagerie
+of streams would instead push keyed events on to the single stream. Would
+that be nicer? What are the pros and cons?
+
+For starters, the current model may suffer from dropped signals. An early
+version of my roundRobinThrottle seemed to suffer from such a thing. But
+was it switching to a stateMachine that helped?
+
+The problem was that delete events got interleaved behind upcoming
+queue-push events, which thus had out-of-date queues. But perhaps
+interleaving send events would have fixed that anyway? But that leads to
+the next point.
+
+The other problem is that some events don't merit being forwarded. This
+means events must either be filtered or convesely manually created. I have
+an aesthetic preference for the latter, which points to using state machines.
+
+But I am also aesthetically *against* state machines. I don't like needing to
+tag events with an internal code. It is much better that individual streams
+contain specific types of data. Maybe I could combine the two practices?
+
+(And maybe I wouldn't care if the internal code was in fact a set of data
+constructors?)
+
+To combine the two... hmm... No, that's just nonsense.
+
+Using the combined-stream model really does sound better. I should try
+creating a new eventNetwork. Who knows, the random .skip(x) lines in the
+unit test expectations might make more sense. :)
