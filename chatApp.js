@@ -168,8 +168,18 @@ var ChanView = React.createClass({
 var ChatWindow = React.createClass({
     render: function() {
         var nodes = this.props.messages.map(function(msg, idx) {
+            var Msg;
+
+            switch(msg.type) {
+            case "ChatMessage":
+                Msg = ChatMessage;
+                break;
+            default:
+                throw("Unknown message type");
+            }
+
             return (
-                <ChatMessage key={idx} {...msg} />
+                <Msg key={idx} {...msg.message} />
             );
         });
         return (
