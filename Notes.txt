@@ -87,3 +87,7 @@ To combine the two... hmm... No, that's just nonsense.
 Using the combined-stream model really does sound better. I should try
 creating a new eventNetwork. Who knows, the random .skip(x) lines in the
 unit test expectations might make more sense. :)
+
+~~~ 08-jan 15
+Oh wow, scripting the interface is so easy with this layout! Just push the
+actions to the appropriate buses! Just what I always wanted!
