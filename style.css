@@ -47,16 +47,16 @@ body {
     order: 1;
 }
 
-/* ChatMessage */
-.chatMessage {
+/* Messages */
+.message {
     margin-top: 0.5em;
 }
-.chatMessage:after {
+.message:after {
     content: "";
     display: table;
     clear: both;
 }
-.chatMessage:last-child {
+.message:last-child {
     margin-bottom: 0.5em;
 }
 .chatMessage-meta {
@@ -74,6 +74,14 @@ body {
 .chatMessage-data {
     padding-top: 0.6em;
     margin-left: 1em;
+}
+.message + .message-joined, .message + .message-left {
+    display: inline-block;
+    background: rgb(203, 175, 203);
+    margin-left: 2em;
+    margin-right: 2em;
+    padding: 2px;
+    border-radius: 2px;
 }
 
 /* ChanOptions*/

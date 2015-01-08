@@ -203,7 +203,7 @@ var ChatMessage = React.createClass({
             return String(d.getHours() + ":" + d.getMinutes());
         }(new Date(this.props.stamp)));
         return (
-            <div className="chatMessage">
+            <div className="message message-chat">
                 <aside className="chatMessage-meta">
                     <div className="chatMessage-name">{this.props.user}</div>
                     <time className="chatMessage-date">{date}</time>
@@ -218,7 +218,9 @@ var ChatMessage = React.createClass({
 var JoinedMessage = React.createClass({
     render: function() {
         return (
-            <div>{this.props.user.name}</div>
+            <div className="message message-joined">
+                {this.props.user.name} has joined
+            </div>
         );
     }
 });
@@ -227,7 +229,9 @@ var JoinedMessage = React.createClass({
 var LeftMessage = React.createClass({
     render: function() {
         return (
-            <div>{this.props.user.name}</div>
+            <div className="message message-left">
+                {this.props.user.name} has left
+            </div>
         );
     }
 });
