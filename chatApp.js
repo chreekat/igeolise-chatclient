@@ -289,14 +289,14 @@ var ChanOptions = React.createClass({
         });
         return (
             <ul className="chanOptions">
-                <label htmlFor="chanOptions-input">
-                    <li className="chanOptions-chan">
-                        <input id="chanOptions-input"
+                <li className="chanOptions-chan chanOptions-chan-new">
+                    <label className="chanOptions-inputLabel">
+                        <input
                             className="chanOptions-input"
                             onKeyDown={handleNewChan} ref='newChannelInput'
                             placeholder='New channel' />
-                    </li>
-                </label>
+                    </label>
+                </li>
                 {options}
             </ul>
         );

@@ -82,9 +82,18 @@ body {
 
 .chanOptions-chan {
     cursor: pointer;
-    position: relative;
-    padding: 0.5em;
     display: flex;
+    background: #eeeeee;
+}
+.chanOptions-chan, .chanOptions-inputLabel {
+    padding: 0.5em;
+}
+.chanOptions-chan-new {
+    padding: 0;
+}
+.chanOptions-inputLabel {
+    width: 100%;
+    cursor: pointer;
 }
 .chanOptions-chan-joined {
     background: lightyellow;
