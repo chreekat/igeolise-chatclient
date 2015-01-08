@@ -300,10 +300,3 @@ var ChanOptions = React.createClass({
 // FIRE ZE MISSILES
 React.initializeTouchEvents(true);
 React.render(<ChatApp />, document.getElementById("chatApp"));
-
-// FOR TESTING
-setTimeout(function() {
-    appBuses.username.push("blarg");
-    appBuses.toggleChanSelect.push();
-}, 500);
-
