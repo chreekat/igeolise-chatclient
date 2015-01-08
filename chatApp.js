@@ -239,10 +239,11 @@ var UsernameSelectView = React.createClass({
 var ChanSelectView = React.createClass({
     render: function() {
         var chan = this.props.currentChannel;
-        var title = (chan !== null ? chan.name : "<>");
+        var title = (chan !== null ? chan.name : "Join a channel to begin");
         return (
             <Main title={title}>
-                <ChanOptions channels={this.props.channels}/>
+                <ChanOptions className="chanSelect-chanOptions"
+                    channels={this.props.channels}/>
             </Main>
         );
     }
@@ -272,17 +273,24 @@ var ChanOptions = React.createClass({
         };
         var options = this.props.channels.map(function(chan) {
             return (
-                <li key={chan.name} onClick={handleSelect(chan.name)}>
-                    <span>{chan.name}</span>
-                    <span onClick={leaveChannel(chan.name)}>[leave]</span>
+                <li className="chanOptions-chan"
+                        key={chan.name} onClick={handleSelect(chan.name)}>
+                    <span className="chanOptions-chanName">{chan.name}</span>
+                    <span className="chanOptions-leaveChan"
+                        onClick={leaveChannel(chan.name)}>[leave]</span>
                 </li>
             );
         });
         return (
-            <ul>
-                <li><input onKeyDown={handleNewChan} ref='newChannelInput'
-                    placeholder='New channel' />
-                </li>
+            <ul className="chanOptions">
+                <label htmlFor="chanOptions-input">
+                    <li className="chanOptions-chan">
+                        <input id="chanOptions-input"
+                            className="chanOptions-input"
+                            onKeyDown={handleNewChan} ref='newChannelInput'
+                            placeholder='New channel' />
+                    </li>
+                </label>
                 {options}
             </ul>
         );
@@ -292,3 +300,10 @@ var ChanOptions = React.createClass({
 // FIRE ZE MISSILES
 React.initializeTouchEvents(true);
 React.render(<ChatApp />, document.getElementById("chatApp"));
+
+// FOR TESTING
+setTimeout(function() {
+    appBuses.username.push("blarg");
+    appBuses.toggleChanSelect.push();
+}, 500);
+

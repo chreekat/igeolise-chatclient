@@ -73,3 +73,27 @@ body {
     padding-top: 0.6em;
     margin-left: 1em;
 }
+
+/* ChanSelect / ChanOptions*/
+.chanOptions {
+    list-style: none;
+    padding: 0 1em;
+}
+
+.chanOptions-chan {
+    cursor: pointer;
+    position: relative;
+    padding: 0.5em;
+    display: flex;
+}
+.chanOptions-chan:hover {
+    background: lightgrey;
+}
+.chanOptions-chanName {
+    flex: 1 1 auto;
+    order: 1;
+}
+.chanOptions-leaveChan {
+    flex: 0 0 auto;
+    order: 2;
+}
