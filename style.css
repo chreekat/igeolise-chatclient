@@ -5,6 +5,8 @@ body {
 
 /* Design framework */
 .main {
+    display: flex;
+    flex-direction: column;
     position: fixed;
     top: 0;
     bottom: 0;
@@ -15,6 +17,8 @@ body {
     background: lightblue;
     border-radius: 4px;
     padding: 5px;
+    margin-top: 8px;
+    flex: 0 0 auto;
 }
 .main-header-title {
     display: inline;
@@ -22,13 +26,23 @@ body {
 .main-header-chanSelect {
     float: right;
 }
+.main-content {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
 
 /* ChanView */
 .chanView-input {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    resize: none;
+    flex: 0 0 auto;
+    order: 2;
+    resize: vertical;
+}
+.chatWindow {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    order: 1;
 }
 
 /* ChatMessage */
@@ -39,6 +53,9 @@ body {
     content: "";
     display: table;
     clear: both;
+}
+.chatMessage:last-child {
+    margin-bottom: 0.5em;
 }
 .chatMessage-meta {
     float: left;
