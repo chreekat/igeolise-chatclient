@@ -180,6 +180,9 @@ var ChatWindow = React.createClass({
             case "LeftMessage":
                 Msg = LeftMessage;
                 break;
+            case "UsersMessage":
+                Msg = UsersMessage;
+                break;
             default:
                 throw("Unknown message type");
             }
@@ -231,6 +234,20 @@ var LeftMessage = React.createClass({
         return (
             <div className="message message-left">
                 {this.props.user.name} has left
+            </div>
+        );
+    }
+});
+
+// #### UsersMessage
+var UsersMessage = React.createClass({
+    render: function() {
+        var userList = this.props.users.reduce(function(a, b) {
+            return a.name + ", " + b.name;
+        });
+        return (
+            <div className="message message-users">
+                Users: {userList}
             </div>
         );
     }

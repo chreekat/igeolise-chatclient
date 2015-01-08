@@ -75,7 +75,9 @@ body {
     padding-top: 0.6em;
     margin-left: 1em;
 }
-.message + .message-joined, .message + .message-left {
+.message.message-joined,
+.message.message-left,
+.message.message-users {
     display: inline-block;
     background: rgb(203, 175, 203);
     margin-left: 2em;
