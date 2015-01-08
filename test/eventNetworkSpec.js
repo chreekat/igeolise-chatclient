@@ -103,6 +103,12 @@ describe("EventNetwork", function() {
                     {name: "tyr"},
                     {name: "ratatoskr"}
                 ]);
+                expect(chans.channels.asgard.messages[0]).toEqual({
+                    type: "JoinedMessage",
+                    message: {
+                        user: {name: "ratatoskr"}
+                    }
+                });
                 done();
             });
             this.serverBuses.joinedChannel.push({
@@ -123,6 +129,12 @@ describe("EventNetwork", function() {
                     {name: "ratatoskr"},
                     {name: "woden"}
                 ]);
+                expect(chans.channels.asgard.messages[0]).toEqual({
+                    type: "LeftMessage",
+                    message: {
+                        user: {name: "that other guy"}
+                    }
+                });
                 done();
             });
             this.serverBuses.joinedChannel.push({
