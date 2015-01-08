@@ -45,9 +45,9 @@ describe("EventNetwork", function() {
             this.chansP.skip(1).onValue(function(chans) {
                 expect(chans.channels.asgard.messages[0]).toEqual({
                     type: "UsersMessage",
-                    message: [{
-                        name: "Bob"
-                    }]
+                    message: {
+                        users: [{ name: "Bob" }]
+                    }
                 });
                 done();
             });
