@@ -162,7 +162,9 @@ var ChanView = React.createClass({
     }
 });
 
-// ### subcomponents of ChanView
+// ### Subcomponents of ChanView
+
+// #### ChatWindow
 var ChatWindow = React.createClass({
     render: function() {
         var nodes = this.props.messages.map(function(msg, idx) {
@@ -177,6 +179,8 @@ var ChatWindow = React.createClass({
         );
     }
 });
+
+// #### ChatMessage
 var ChatMessage = React.createClass({
     render: function() {
         var date = (function(d) {
