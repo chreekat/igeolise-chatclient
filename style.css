@@ -1,6 +1,8 @@
 /* Minor reset */
 body {
     font-family: sans-serif;
+    color: #202020;
+    background: #fefefe;
 }
 
 /* Design framework */
@@ -74,7 +76,7 @@ body {
     margin-left: 1em;
 }
 
-/* ChanSelect / ChanOptions*/
+/* ChanOptions*/
 .chanOptions {
     list-style: none;
     padding: 0 1em;
@@ -85,7 +87,8 @@ body {
     display: flex;
     background: #eeeeee;
 }
-.chanOptions-chan, .chanOptions-inputLabel {
+.chanOptions-chan,
+.chanOptions-inputLabel {
     padding: 0.5em;
 }
 .chanOptions-chan-new {
@@ -94,6 +97,12 @@ body {
 .chanOptions-inputLabel {
     width: 100%;
     cursor: pointer;
+}
+.chanOptions-chan:first-child {
+    border-radius: 4px 4px 0 0;
+}
+.chanOptions-chan:last-child {
+    border-radius: 0 0 4px 4px;
 }
 .chanOptions-chan-joined {
     background: lightyellow;
