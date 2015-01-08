@@ -174,6 +174,12 @@ var ChatWindow = React.createClass({
             case "ChatMessage":
                 Msg = ChatMessage;
                 break;
+            case "JoinedMessage":
+                Msg = JoinedMessage;
+                break;
+            case "LeftMessage":
+                Msg = LeftMessage;
+                break;
             default:
                 throw("Unknown message type");
             }
@@ -204,6 +210,24 @@ var ChatMessage = React.createClass({
                 </aside>
                 <main className="chatMessage-content">{this.props.text}</main>
             </div>
+        );
+    }
+});
+
+// #### JoinedMessage
+var JoinedMessage = React.createClass({
+    render: function() {
+        return (
+            <div>{this.props.user.name}</div>
+        );
+    }
+});
+
+// #### LeftMessage
+var LeftMessage = React.createClass({
+    render: function() {
+        return (
+            <div>{this.props.user.name}</div>
         );
     }
 });
