@@ -71,14 +71,6 @@ var topViewE = appBuses.username.flatMapLatest(function (username) {
     }
 });
 
-// Build the reactive state for the top-level component.
-var chatAppStateProp = Bacon.combineTemplate({
-    topView: topViewE.toProperty(function() { return <UsernameSelectView /> }),
-    currentChannel: eventNetwork.currentChannelP,
-    availableChannels: eventNetwork.availableChannelsP,
-    joinedChannels: eventNetwork.joinedChannelsE.toProperty([])
-});
-
 // # REACT COMPONENTS (bottom of the flow)
 var ChatApp = React.createClass({
     componentWillMount: function() {
@@ -299,6 +291,14 @@ var ChanOptions = React.createClass({
     }
 });
 
-// FIRE ZE MISSILES
+// # FIRE ZE MISSILES
+
+// Build the reactive state for the top-level component.
+var chatAppStateProp = Bacon.combineTemplate({
+    topView: topViewE.toProperty(function() { return <UsernameSelectView /> }),
+    currentChannel: eventNetwork.currentChannelP,
+    availableChannels: eventNetwork.availableChannelsP,
+    joinedChannels: eventNetwork.joinedChannelsE.toProperty([])
+});
 React.initializeTouchEvents(true);
 React.render(<ChatApp />, document.getElementById("chatApp"));
