@@ -38,7 +38,24 @@ describe("EventNetwork", function() {
                 expect(chans.channels.asgard).toBeDefined();
                 done();
             });
-            this.serverBuses.joinedChannel.push({name: "asgard"});
+            this.serverBuses.joinedChannel.push({name: "asgard", messages: []});
+        });
+
+        it("wraps joinedChannel values in a ChatMessage pseudo data constructor",
+            function(done) {
+                var someMessage = {};
+                this.chansP.skip(1).onValue(function(chans) {
+                    var msg = chans.channels.asgard.messages[0];
+                    expect(msg.type).toEqual("ChatMessage");
+                    expect(msg.message).toBe(someMessage);
+                    // Is morphism
+                    expect(chans.channels.asgard.messages.length).toBe(1);
+                    done();
+                });
+                this.serverBuses.joinedChannel.push({
+                    name: "asgard",
+                    messages: [someMessage]
+                });
         });
 
         it('reacts to appBuses.leaveChannel', function(done) {
@@ -46,7 +63,7 @@ describe("EventNetwork", function() {
                 expect(chans.asgard).toBeUndefined();
                 done();
             });
-            this.serverBuses.joinedChannel.push({name: "asgard"});
+            this.serverBuses.joinedChannel.push({name: "asgard", messages: []});
             this.appBuses.leaveChannel.push("asgard");
         });
 
@@ -61,9 +78,14 @@ describe("EventNetwork", function() {
 
         it("reacts to serverBuses.incomingMsg", function(done) {
             this.chansP.skip(2).onValue(function(chans) {
-                expect(chans.channels.asgard.messages).toEqual([
-                    {user: {name: "tyr"}, stamp: 141708891560, text: "Aah"}
-                ]);
+                expect(chans.channels.asgard.messages).toEqual([{
+                    type: "ChatMessage",
+                    message: {
+                        user: {name: "tyr"},
+                        stamp: 141708891560,
+                        text: "Aah"
+                    }
+                }]);
                 done();
             });
             this.serverBuses.joinedChannel.push({name: "asgard", messages: []});
@@ -83,7 +105,11 @@ describe("EventNetwork", function() {
                 ]);
                 done();
             });
-            this.serverBuses.joinedChannel.push({name: "asgard", users: [{name: "tyr"}]});
+            this.serverBuses.joinedChannel.push({
+                name: "asgard",
+                users: [{name: "tyr"}],
+                messages: []
+            });
             this.serverBuses.userJoined.push({
                 channel: "asgard",
                 user: {name: "ratatoskr"}
@@ -106,7 +132,8 @@ describe("EventNetwork", function() {
                     {name: "that other guy"},
                     {name: "ratatoskr"},
                     {name: "woden"}
-                ]
+                ],
+                messages: []
             });
             this.serverBuses.userLeft.push({
                 channel: "asgard",
@@ -132,7 +159,7 @@ describe("EventNetwork", function() {
                     done();
                 });
             this.appBuses.joinChannel.push("asgard");
-            this.serverBuses.joinedChannel.push({name: "asgard"});
+            this.serverBuses.joinedChannel.push({name: "asgard", messages: []});
         });
 
         it("switches from chan to null when it isn't available",
@@ -147,7 +174,7 @@ describe("EventNetwork", function() {
                     done();
                 });
             this.appBuses.joinChannel.push("asgard");
-            this.serverBuses.joinedChannel.push({name: "asgard"});
+            this.serverBuses.joinedChannel.push({name: "asgard", messages: []});
             this.appBuses.joinChannel.push("midgard");
         });
     });
@@ -156,7 +183,7 @@ describe("EventNetwork", function() {
         beforeEach(function() {
             var that = this;
             this.serverSpy.joinChannel.and.callFake(function(arg) {
-                that.serverBuses.joinedChannel.push({name: arg});
+                that.serverBuses.joinedChannel.push({name: arg, messages: []});
             });
         });
 
