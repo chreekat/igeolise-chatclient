@@ -38,7 +38,26 @@ describe("EventNetwork", function() {
                 expect(chans.channels.asgard).toBeDefined();
                 done();
             });
-            this.serverBuses.joinedChannel.push({name: "asgard", messages: []});
+            this.serverBuses.joinedChannel.push({name: "asgard", users: [], messages: []});
+        });
+
+        it("Pushes a UsersMessage when a channel is joined", function(done) {
+            this.chansP.skip(1).onValue(function(chans) {
+                expect(chans.channels.asgard.messages[0]).toEqual({
+                    type: "UsersMessage",
+                    message: [{
+                        name: "Bob"
+                    }]
+                });
+                done();
+            });
+            this.serverBuses.joinedChannel.push({
+                name: "asgard",
+                users: [{
+                    name: "Bob"
+                }],
+                messages: []
+            });
         });
 
         it("wraps joinedChannel values in a ChatMessage pseudo data constructor",
