@@ -59,6 +59,10 @@ var EventNetwork = function(appBuses, serverBuses, chatServer) {
         .flatMapLatest(function(chanStore) {
             return serverBuses.userJoined.scan(chanStore, function(chanStore, u) {
                 chanStore.channels[u.channel].users.push(u.user);
+                chanStore.channels[u.channel].messages.push({
+                    type: "JoinedMessage",
+                    message: {user: u.user}
+                });
                 return chanStore;
             });
         })
@@ -74,6 +78,10 @@ var EventNetwork = function(appBuses, serverBuses, chatServer) {
                         userList.splice(idx, 1);
                     }
                 }
+                chanStore.channels[u.channel].messages.push({
+                    type: "LeftMessage",
+                    message: {user: u.user}
+                });
                 return chanStore;
             })
         })
