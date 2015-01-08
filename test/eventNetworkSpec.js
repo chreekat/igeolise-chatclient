@@ -64,11 +64,9 @@ describe("EventNetwork", function() {
             function(done) {
                 var someMessage = {};
                 this.chansP.skip(1).onValue(function(chans) {
-                    var msg = chans.channels.asgard.messages[0];
+                    var msg = chans.channels.asgard.messages[1];
                     expect(msg.type).toEqual("ChatMessage");
                     expect(msg.message).toBe(someMessage);
-                    // Is morphism
-                    expect(chans.channels.asgard.messages.length).toBe(1);
                     done();
                 });
                 this.serverBuses.joinedChannel.push({
@@ -97,14 +95,14 @@ describe("EventNetwork", function() {
 
         it("reacts to serverBuses.incomingMsg", function(done) {
             this.chansP.skip(2).onValue(function(chans) {
-                expect(chans.channels.asgard.messages).toEqual([{
+                expect(chans.channels.asgard.messages[1]).toEqual({
                     type: "ChatMessage",
                     message: {
                         user: {name: "tyr"},
-                        stamp: 141708891560,
-                        text: "Aah"
+                    stamp: 141708891560,
+                    text: "Aah"
                     }
-                }]);
+                });
                 done();
             });
             this.serverBuses.joinedChannel.push({name: "asgard", messages: []});
@@ -122,7 +120,7 @@ describe("EventNetwork", function() {
                     {name: "tyr"},
                     {name: "ratatoskr"}
                 ]);
-                expect(chans.channels.asgard.messages[0]).toEqual({
+                expect(chans.channels.asgard.messages[1]).toEqual({
                     type: "JoinedMessage",
                     message: {
                         user: {name: "ratatoskr"}
@@ -148,7 +146,7 @@ describe("EventNetwork", function() {
                     {name: "ratatoskr"},
                     {name: "woden"}
                 ]);
-                expect(chans.channels.asgard.messages[0]).toEqual({
+                expect(chans.channels.asgard.messages[1]).toEqual({
                     type: "LeftMessage",
                     message: {
                         user: {name: "that other guy"}
