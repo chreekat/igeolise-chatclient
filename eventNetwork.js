@@ -22,6 +22,10 @@ var EventNetwork = function(appBuses, serverBuses, chatServer) {
                     message: m
                 };
             });
+            messages.unshift({
+                type: "UsersMessage",
+                message: chan.users
+            });
             chan.messages = messages;
             chanStore.channels[chan.name] = chan;
             return chanStore;
