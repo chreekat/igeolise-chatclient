@@ -86,6 +86,9 @@ body {
     padding: 0.5em;
     display: flex;
 }
+.chanOptions-chan-joined {
+    background: lightyellow;
+}
 .chanOptions-chan:hover {
     background: lightgrey;
 }
@@ -96,4 +99,12 @@ body {
 .chanOptions-leaveChan {
     flex: 0 0 auto;
     order: 2;
+    display: none;
+    color: grey;
+}
+.chanOptions-leaveChan:hover {
+    text-decoration: underline;
+}
+.chanOptions-chan-joined .chanOptions-leaveChan {
+    display: initial;
 }

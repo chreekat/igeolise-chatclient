@@ -62,7 +62,8 @@ var topViewE = appBuses.username.flatMapLatest(function (username) {
                 false: function(state) {
                     return (
                         <ChanSelectView
-                            channels={state.channels}
+                            channels={state.availableChannels}
+                            joined={state.joinedChannels}
                             currentChannel={state.currentChannel} />
                     );
                 }
@@ -74,7 +75,8 @@ var topViewE = appBuses.username.flatMapLatest(function (username) {
 var chatAppStateProp = Bacon.combineTemplate({
     topView: topViewE.toProperty(function() { return <UsernameSelectView /> }),
     currentChannel: eventNetwork.currentChannelP,
-    channels: eventNetwork.availableChannelsP
+    availableChannels: eventNetwork.availableChannelsP,
+    joinedChannels: eventNetwork.joinedChannelsE.toProperty([])
 });
 
 // # REACT COMPONENTS (bottom of the flow)
@@ -243,7 +245,8 @@ var ChanSelectView = React.createClass({
         return (
             <Main title={title}>
                 <ChanOptions className="chanSelect-chanOptions"
-                    channels={this.props.channels}/>
+                    channels={this.props.channels}
+                    joined={this.props.joined} />
             </Main>
         );
     }
@@ -272,8 +275,11 @@ var ChanOptions = React.createClass({
             };
         };
         var options = this.props.channels.map(function(chan) {
+            var isJoined = (that.props.joined.indexOf(chan.name) >= 0);
+            var chanClass = "chanOptions-chan" +
+                (isJoined ? " chanOptions-chan-joined" : "");
             return (
-                <li className="chanOptions-chan"
+                <li className={chanClass}
                         key={chan.name} onClick={handleSelect(chan.name)}>
                     <span className="chanOptions-chanName">{chan.name}</span>
                     <span className="chanOptions-leaveChan"
