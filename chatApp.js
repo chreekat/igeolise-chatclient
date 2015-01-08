@@ -203,8 +203,15 @@ var ChatWindow = React.createClass({
 var ChatMessage = React.createClass({
     render: function() {
         var date = (function(d) {
-            return String(d.getHours() + ":" + d.getMinutes());
+            var h = d.getHours(),
+                m = d.getMinutes();
+            return ""
+                + (h < 10 ? "0" : "")
+                + h + ":"
+                + (m < 10 ? "0" : "")
+                + m;
         }(new Date(this.props.stamp)));
+
         return (
             <div className="message message-chat">
                 <aside className="chatMessage-meta">
