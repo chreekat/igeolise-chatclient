@@ -16,6 +16,13 @@ var EventNetwork = function(appBuses, serverBuses, chatServer) {
         // server.joinedChannel
         serverBuses.joinedChannel
         .scan({current: null, channels:{}}, function(chanStore, chan) {
+            var messages = chan.messages.map(function(m) {
+                return {
+                    type: "ChatMessage",
+                    message: m
+                };
+            });
+            chan.messages = messages;
             chanStore.channels[chan.name] = chan;
             return chanStore;
         })
@@ -41,7 +48,10 @@ var EventNetwork = function(appBuses, serverBuses, chatServer) {
         // incomingMsg
         .flatMapLatest(function(chanStore) {
             return serverBuses.incomingMsg.scan(chanStore, function(chanStore, m) {
-                chanStore.channels[m.channel].messages.push(m.message);
+                chanStore.channels[m.channel].messages.push({
+                    type: "ChatMessage",
+                    message: m.message
+                });
                 return chanStore;
             });
         })
