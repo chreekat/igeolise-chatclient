@@ -90,11 +90,7 @@ var ChatApp = React.createClass({
         chatAppStateProp.onValue(this, "replaceState");
     },
     render: function() {
-        return (
-            <div>
-                {this.state.topView(this.state)}
-            </div>
-        );
+        return this.state.topView(this.state);
     }
 });
 
@@ -103,7 +99,7 @@ var Main = React.createClass({
     render: function() {
         var {title, children, ...other} = this.props;
         return (
-            <section {...other} className="main">
+            <div {...other} className="main">
                 <header className="main-header">
                     <h2 className="main-header-title">{title}</h2>
                     <button onClick={() => appBuses.toggleChanSelect.push()}
@@ -112,7 +108,7 @@ var Main = React.createClass({
                 <main className="main-content">
                     {children}
                 </main>
-            </section>
+            </div>
         );
     }
 });
@@ -121,11 +117,11 @@ var Dialog = React.createClass({
     render: function() {
         var {children, ...other} = this.props;
         return (
-            <section {...other} className="dialog">
+            <div {...other} className="dialog">
                 <main className="dialog-content">
                     {children}
                 </main>
-            </section>
+            </div>
         );
     }
 });
@@ -195,13 +191,13 @@ var ChatMessage = React.createClass({
             return String(d.getHours() + ":" + d.getMinutes());
         }(new Date(this.props.stamp)));
         return (
-            <section className="chatMessage">
-                <div className="chatMessage-meta">
+            <div className="chatMessage">
+                <aside className="chatMessage-meta">
                     <div className="chatMessage-name">{this.props.user}</div>
                     <time className="chatMessage-date">{date}</time>
-                </div>
+                </aside>
                 <main className="chatMessage-content">{this.props.text}</main>
-            </section>
+            </div>
         );
     }
 });
