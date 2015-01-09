@@ -203,9 +203,9 @@ var ChatWindow = React.createClass({
             );
         });
         return (
-            <main ref="chatWindow" className="chatWindow">
+            <ol ref="chatWindow" className="chatWindow">
                 {nodes}
-            </main>
+            </ol>
         );
     }
 });
@@ -224,13 +224,13 @@ var ChatMessage = React.createClass({
         }(new Date(this.props.stamp)));
 
         return (
-            <div className="message message-chat">
+            <li className="message message-chat">
                 <aside className="chatMessage-meta">
                     <div className="chatMessage-name">{this.props.user}</div>
                     <time className="chatMessage-date">{date}</time>
                 </aside>
                 <main className="chatMessage-content">{this.props.text}</main>
-            </div>
+            </li>
         );
     }
 });
@@ -239,9 +239,9 @@ var ChatMessage = React.createClass({
 var JoinedMessage = React.createClass({
     render: function() {
         return (
-            <div className="message message-joined">
+            <li className="message message-joined">
                 {this.props.user.name} has joined
-            </div>
+            </li>
         );
     }
 });
@@ -250,9 +250,9 @@ var JoinedMessage = React.createClass({
 var LeftMessage = React.createClass({
     render: function() {
         return (
-            <div className="message message-left">
+            <li className="message message-left">
                 {this.props.user.name} has left
-            </div>
+            </li>
         );
     }
 });
@@ -264,9 +264,9 @@ var UsersMessage = React.createClass({
             return a.name + ", " + b.name;
         });
         return (
-            <div className="message message-users">
+            <li className="message message-users">
                 Users: {userList}
-            </div>
+            </li>
         );
     }
 });
