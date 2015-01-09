@@ -43,7 +43,7 @@ describe("EventNetwork", function() {
 
         it("Pushes a UsersMessage when a channel is joined", function(done) {
             this.chansP.skip(1).onValue(function(chans) {
-                expect(chans.channels.asgard.messages[0]).toEqual({
+                expect(chans.channels.asgard.messages[1]).toEqual({
                     type: "UsersMessage",
                     message: {
                         users: [{ name: "Bob" }]
@@ -56,7 +56,7 @@ describe("EventNetwork", function() {
                 users: [{
                     name: "Bob"
                 }],
-                messages: []
+                messages: [1]
             });
         });
 

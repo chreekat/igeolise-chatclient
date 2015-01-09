@@ -22,7 +22,7 @@ var EventNetwork = function(appBuses, serverBuses, chatServer) {
                     message: m
                 };
             });
-            messages.unshift({
+            messages.push({
                 type: "UsersMessage",
                 message: {
                     users: chan.users
