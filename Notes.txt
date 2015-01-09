@@ -91,3 +91,15 @@ unit test expectations might make more sense. :)
 ~~~ 08-jan 15
 Oh wow, scripting the interface is so easy with this layout! Just push the
 actions to the appropriate buses! Just what I always wanted!
+
+~~~ 09-jan 15
+Finished the mobile view! Good god, what do I do next?
+
+Oh right, the non-mobile view.
+
+A note on immutable: I was actually bitten by mutability. The UsersMessage,
+in the list of channel messages, was linked to the channel's users field.
+Thus when the number of users changed, the message "magically" changed. I
+chose that as an excuse to try out Immutable.js, although for such a simple
+case I think a quickly-written version of _.extend would have been fine.
+Anyway, it fixed the problem.
