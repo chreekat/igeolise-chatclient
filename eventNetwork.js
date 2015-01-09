@@ -75,6 +75,8 @@ var EventNetwork = function(appBuses, serverBuses, chatServer) {
         // userLeft
         .flatMapLatest(function(chanStore) {
             return serverBuses.userLeft.scan(chanStore, function(chanStore, u) {
+                // Technically, we should check to see whether it was US that
+                // left, rather than just whether the channel is undefined
                 if (chanStore.channels[u.channel] !== undefined) {
                     var userList = chanStore.channels[u.channel].users;
                     var idx = findIndex.call(userList, function(user) {
@@ -83,11 +85,11 @@ var EventNetwork = function(appBuses, serverBuses, chatServer) {
                     if (idx >= 0) {
                         userList.splice(idx, 1);
                     }
+                    chanStore.channels[u.channel].messages.push({
+                        type: "LeftMessage",
+                        message: {user: u.user}
+                    });
                 }
-                chanStore.channels[u.channel].messages.push({
-                    type: "LeftMessage",
-                    message: {user: u.user}
-                });
                 return chanStore;
             })
         })
