@@ -64,7 +64,7 @@ describe("EventNetwork", function() {
             function(done) {
                 var someMessage = {};
                 this.chansP.skip(1).onValue(function(chans) {
-                    var msg = chans.channels.asgard.messages[1];
+                    var msg = chans.channels.asgard.messages[0];
                     expect(msg.type).toEqual("ChatMessage");
                     expect(msg.message).toBe(someMessage);
                     done();
