@@ -61,6 +61,9 @@ body {
 .message:last-child {
     margin-bottom: 0.5em;
 }
+.chatMessage-content {
+    margin-left: 1.3em;
+}
 .chatMessage-meta {
     float: left;
     background: lightgreen;
@@ -80,7 +83,6 @@ body {
 .message.message-joined,
 .message.message-left,
 .message.message-users {
-    display: inline-block;
     background: rgb(203, 175, 203);
     margin-left: 2em;
     margin-right: 2em;
