@@ -316,6 +316,8 @@ var ChanSelectView = React.createClass({
         );
     }
 });
+
+// ### ChanOptions
 var ChanOptions = React.createClass({
     render: function() {
         var that = this;
