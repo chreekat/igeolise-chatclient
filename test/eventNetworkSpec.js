@@ -60,6 +60,27 @@ describe("EventNetwork", function() {
             });
         });
 
+        it("keeps UsersMessage immutable", function(done) {
+            this.chansP.skip(2).onValue(function(chans) {
+                expect(chans.channels.Neorxnawang.messages[1]
+                        .message.users.length)
+                    .toEqual(2);
+                done();
+            });
+            this.serverBuses.joinedChannel.push({
+                name: "Neorxnawang",
+                users: [
+                    { name: "Wōden" },
+                    { name: "Baldaeg" }
+                ],
+                messages: [1]
+            });
+            this.serverBuses.userLeft.push({
+                channel: "Neorxnawang",
+                user: {name: "Wōden" }
+            });
+        });
+
         it("wraps joinedChannel values in a ChatMessage pseudo data constructor",
             function(done) {
                 var someMessage = {};
