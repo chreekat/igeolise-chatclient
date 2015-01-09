@@ -260,9 +260,10 @@ var LeftMessage = React.createClass({
 // #### UsersMessage
 var UsersMessage = React.createClass({
     render: function() {
-        var userList = this.props.users.reduce(function(a, b) {
-            return a.name + ", " + b.name;
-        });
+        console.log(this.props.users.toJS());
+        var userList = (this.props.users.reduce(function(a, b) {
+            return {name: a.name + ", " + b.name };
+        })).name;
         return (
             <li className="message message-users">
                 Users: {userList}

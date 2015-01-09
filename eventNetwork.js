@@ -22,6 +22,7 @@ var EventNetwork = function(appBuses, serverBuses, chatServer) {
                     message: m
                 };
             });
+            chan.users = Immutable.List(chan.users);
             messages.push({
                 type: "UsersMessage",
                 message: {
@@ -29,7 +30,6 @@ var EventNetwork = function(appBuses, serverBuses, chatServer) {
                 }
             });
             chan.messages = messages;
-            chan.users = Immutable.List(chan.users);
             chanStore.channels[chan.name] = chan;
             return chanStore;
         })
