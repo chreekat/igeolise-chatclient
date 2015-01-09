@@ -29,6 +29,7 @@ var EventNetwork = function(appBuses, serverBuses, chatServer) {
                 }
             });
             chan.messages = messages;
+            chan.users = Immutable.List(chan.users);
             chanStore.channels[chan.name] = chan;
             return chanStore;
         })
@@ -64,7 +65,8 @@ var EventNetwork = function(appBuses, serverBuses, chatServer) {
         // userJoined
         .flatMapLatest(function(chanStore) {
             return serverBuses.userJoined.scan(chanStore, function(chanStore, u) {
-                chanStore.channels[u.channel].users.push(u.user);
+                var usrs = chanStore.channels[u.channel].users.push(u.user);
+                chanStore.channels[u.channel].users = usrs;
                 chanStore.channels[u.channel].messages.push({
                     type: "JoinedMessage",
                     message: {user: u.user}
@@ -78,12 +80,13 @@ var EventNetwork = function(appBuses, serverBuses, chatServer) {
                 // Technically, we should check to see whether it was US that
                 // left, rather than just whether the channel is undefined
                 if (chanStore.channels[u.channel] !== undefined) {
-                    var userList = chanStore.channels[u.channel].users;
-                    var idx = findIndex.call(userList, function(user) {
+                    var chan = chanStore.channels[u.channel];
+                    var usrs = chan.users;
+                    var idx = usrs.findIndex(function(user) {
                         return user.name === u.user.name;
                     });
                     if (idx >= 0) {
-                        userList.splice(idx, 1);
+                        chan.users = usrs.delete(idx);
                     }
                     chanStore.channels[u.channel].messages.push({
                         type: "LeftMessage",
