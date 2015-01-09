@@ -1,0 +1,26 @@
+cannot read prop messages of undefined after leaving | id:01736297d85579b671c9db3842fba9ce0b406bce
+make wrapped messages indent under the aside | id:18080eb36656b526eb38d5e69fbed12e67c66f42
+React.initializeTouchEvents(true) | id:2c87eba2a6b92c4f2e487592702a0d156c25a365
+show join and leave events | id:2c93d849505eeb7971935494dcda413059e76244
+list users on join | id:4382dd3a7b2caa6def5c4bb479693cf11f4610a0
+put UsersMessage at end of queue that comes with JoinedChannel | id:439be86d031a47aa76bf676a2d392ad8b949d90e
+use flex for windows | id:48070b7eee3b8700475ceb810bbeda183677e505
+make EventNetwork and Server classes | id:4bd230c66c6df6d347f79c1fc0845db220a14426
+move chanStateProp creation to bottom | id:536880bca982563542ad55bbb334d4538283621c
+make Messages be a list | id:5d6258852dec11dd7f3160c6ecf861c2745d1523
+only and.callFake in the proper tests | id:5f339e248f9bca8bab5311da12e32a2b004af475
+use Object.getOwnPropertyNames | id:69c486de434fce1515f5a0dae24ed7f5c1f383b3
+better list of available channels | id:777c5fa641b41ce39fde415238e1b86ea7d4ea3e
+make leave channel button meaningful | id:81a595727a564a004735c18be85595bbc8a04745
+scroll to bottom when joining channel | id:a39407cc6fa3cad1c82b20fd8b9d21a75472777d
+remove ChanSelector class in ChanView | id:b76b787bb1bef87ec733ff8cf605af39a14c8433
+use immutable | id:bfaf6788b156db9f07d5dd874ace61b88150ec42
+scroll to boottom when user enters messag | id:c1dcb97054a8062d20c13c05edbae320fc5be099
+break chatview css out of style.css | id:d647a827e9a14bc33fcd5c0b99b392f175e209fe
+crunch dates better | id:dd48bdc6c7765686ca4f1c88e11a7edc104168a6
+fix display of hours/minutes less than 10 | id:dfc5e06600eb3afe24ec55bfbad9907144e25141
+deal with overflowing names | id:e481e0fdccd8c92a12b1633fc0f9f3543491311b
+move chatwindow up | id:e7e72ab7473fd565c96a5f9e9ae88e5aff860b36
+deal with userLeft on a DNE channel | id:ebdfa816ba49f289519daa1c6c2076f7e858be67
+fix order of initialization betw component and propState | id:f03512a6b0410eb52ab204c0561ad037e6ee3026
+should ui actions call bus.push, or should the component somehow create an eventstream? | id:f87083999159284acb9270b5f7166dc351382255

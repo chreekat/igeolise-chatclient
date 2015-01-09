@@ -1,0 +1,5 @@
+check if it was us that left in userLeft | id:1a3c621868a1e0ebc6a96f7372d08b6e214bd1c6
+findIndex shouldnt be global | id:3a715c2c56004d106113df5a332727ca384d31b8
+server buses shouldnt be buses.. they should be defined by serverInterface | id:50916a5891a9538d4d8e9acbe76fd4a5a5005ad8
+serverInterface should check socket status and queue before socket is ready | id:c9c23f7f3e0342084ba8611f09aa788c94935623
+ChanSelect className=foo doesnt do anything | id:e11efd3557af85006abf4d9dcf6210eb4c94591e
