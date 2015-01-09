@@ -11,7 +11,7 @@ At the top are an assortment of Bacon [Buses]. In order for any component to eff
 
 The intermediate processing is an event network built using Bacon combinators. It (mostly) resides in [eventNetwork.js](eventNetwork.js). The rest is in chatApp.js. You can see an example of pushing actions back to the top of the flow at [line 42](chatApp.js#L42).
 
-Cleverly, by putting the event network in a different file, it can be tested independent of the app! Mock buses are easy to create and push values on to. The tests are in [test/eventNetworkSpec.js](test/eventNetworkSpec.js) and can be run with Jasmine's standalone spec runner. With a server serving this directory, the runner is at http://&lt;localhost>/test-runner/SpecRunner.html. 
+By putting the event network in a different file, it can be tested independent of the app. Mock buses are easy to create and push values on to. The tests are in [test/eventNetworkSpec.js](test/eventNetworkSpec.js) and can be run with Jasmine's standalone spec runner. With a server serving this directory, the runner is at http://&lt;localhost>/test-runner/SpecRunner.html. 
 
 The intermediate processing terminates at the creation of one single Property, [chatAppStateProp](chatApp.js#L376). (For some reason I thought it made sense to move its definition to the bottom of the file. It should be moved back up.)
 
