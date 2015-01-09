@@ -121,7 +121,10 @@ var EventNetwork = function(appBuses, serverBuses, chatServer) {
     });
 
     // And a list of joined channels
+    var objKeys = function(o) {
+        return Object.getOwnPropertyNames(o);
+    };
     this.joinedChannelsE = this.channelStoreP
         .map(".channels")
-        .map(Object, "getOwnPropertyNames");
+        .map(objKeys);
 };
