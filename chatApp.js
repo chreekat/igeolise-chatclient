@@ -166,6 +166,17 @@ var ChanView = React.createClass({
 
 // #### ChatWindow
 var ChatWindow = React.createClass({
+    scrollDown: function(o) {
+        var el = o.refs.chatWindow.getDOMNode();
+        el.scrollTop = el.scrollHeight - el.clientHeight;
+    },
+    componentDidUpdate: function() {
+        this.scrollDown(this);
+    },
+    componentDidMount: function() {
+        this.scrollDown(this);
+    },
+
     render: function() {
         var nodes = this.props.messages.map(function(msg, idx) {
             var Msg;
@@ -192,7 +203,7 @@ var ChatWindow = React.createClass({
             );
         });
         return (
-            <main className="chatWindow">
+            <main ref="chatWindow" className="chatWindow">
                 {nodes}
             </main>
         );
